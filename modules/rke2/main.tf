@@ -12,8 +12,15 @@ provider "rancher2" {
   token_key = var.rancher_admin_bearer_token
 }
 
-data "rancher2_cloud_credential" "rancher2_cloud_credential" {
+# data "rancher2_cloud_credential" "rancher2_cloud_credential" {
+#   name = var.cloud_credential_name
+# }
+resource "rancher2_cloud_credential" "rancher2_cloud_credential" {
   name = var.cloud_credential_name
+  amazonec2_credential_config {
+    access_key = var.aws_access_key
+    secret_key = var.aws_secret_key
+  }
 }
 
 resource "rancher2_machine_config_v2" "rancher2_machine_config_v2" {
@@ -37,7 +44,7 @@ resource "rancher2_cluster_v2" "rancher2_cluster_v2" {
   rke_config {
     machine_pools {
       name                         = "pool1"
-      cloud_credential_secret_name = data.rancher2_cloud_credential.rancher2_cloud_credential.id
+      cloud_credential_secret_name = rancher2_cloud_credential.rancher2_cloud_credential.id
       control_plane_role           = true
       etcd_role                    = true
       worker_role                  = true
