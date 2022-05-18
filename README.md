@@ -9,7 +9,7 @@ Provisioning:
 
 Management:
 - Coming soon - [Next up: add/delete node pools]
-- Idea: create "management" functions, which can create, manipulate, and destroy cluster level resources through API calls with go to be used in tests after inital infrastructer is provisioned
+- Idea: Define "management" functions, which can create, manipulate, and destroy cluster level resources through API calls with go to be used in tests after inital infrastructer is provisioned
 
 Functions:
 - Add_node_pool - [coming soon]
