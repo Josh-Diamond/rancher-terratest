@@ -5,6 +5,8 @@ variable rancher_admin_bearer_token {}
 variable cloud_credential_name {}
 
 # AWS specific variables.
+variable aws_access_key {}
+variable aws_secret_key {}
 variable aws_ami {}
 variable aws_region {}
 variable aws_security_group_name {}
