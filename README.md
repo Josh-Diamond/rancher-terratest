@@ -21,4 +21,6 @@ Functions:
 - Deploy_workload - [coming soon]
 - Create_project - [coming soon]
 - Create_namespace - [coming soon]
+- Create_user - [coming soon]
 - Edit_cluster_config - patch any data passed into function - [coming soon]
+- Install_chart - [coming soon]
