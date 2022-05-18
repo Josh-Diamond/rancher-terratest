@@ -16,7 +16,6 @@ Functions:
 - Delete_node_pool - [coming soon]
 - Scale_up_existing_pool - [coming soon]
 - Scale_down_existing_pool - [coming soon]
-- Upgrade_kubernetes_version - [coming soon]
 - Take_etcd_snapshot - [coming soon]
 - Restore_etcd_snapshot - [coming soon]
 - Deploy_workload - [coming soon]
