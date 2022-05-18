@@ -12,6 +12,7 @@ Management:
 - Idea: Define "management" functions, which can create, manipulate, and destroy cluster level resources through API calls with go to be used in tests after inital infrastructer is provisioned
 
 Functions:
+- Get_cluster_specs - [grabs cluster name, nodeCount, provider, and state] 
 - Add_node_pool - [coming soon]
 - Delete_node_pool - [coming soon]
 - Scale_up_existing_pool - [coming soon]
