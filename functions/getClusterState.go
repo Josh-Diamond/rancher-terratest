@@ -1,4 +1,4 @@
-package test
+package functions
 
 import (
 	"encoding/json"
@@ -6,12 +6,9 @@ import (
 	"net/http"
 )
 
-func GetClusterSpecs(hostURL string, clusterID string, token string) {
+func GetClusterState(hostURL string, clusterID string, token string) string {
 
 	type ClusterSpecs struct {
-		Name      string `json:"name"`
-		NodeCount int    `json:"nodeCount"`
-		Provider  string `json:"provider"`
 		State     string `json:"state"`
 	}
 
@@ -39,11 +36,7 @@ func GetClusterSpecs(hostURL string, clusterID string, token string) {
 	jsonErr := json.NewDecoder(res.Body).Decode(&clusterSpecs)
 	if err != nil {
 		fmt.Printf("%v", jsonErr)
-	} else {
-		fmt.Printf("Name: %v\n", clusterSpecs.Name)
-		fmt.Printf("NodeCount: %v\n", clusterSpecs.NodeCount)
-		fmt.Printf("Provider: %v\n", clusterSpecs.Provider)
-		fmt.Printf("State: %v\n", clusterSpecs.State)
-		// fmt.Printf("%v",clusterSpecs)
-	}
+	} 
+	clusterSpec := clusterSpecs.State
+	return clusterSpec
 }

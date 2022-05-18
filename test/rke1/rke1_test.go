@@ -24,3 +24,10 @@ func TestRke1DownSteamCluster(t *testing.T) {
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
 }
+
+// RKE1 does not wait for cluster to provision before destroying.  
+// With RKE1, once the POST req is successful, terraform completes the job, 
+// runs tests pre-maturely while cluster is provisioning, and destroys cluster, 
+// failing all tests
+// Thought: create a conditional loop that listens on cluster object endpoint immediately after cluster creation, 
+// and only continues when clusters state is active
