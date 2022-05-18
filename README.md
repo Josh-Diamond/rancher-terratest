@@ -19,8 +19,12 @@ Functions:
 - Take_etcd_snapshot - [coming soon]
 - Restore_etcd_snapshot - [coming soon]
 - Deploy_workload - [coming soon]
+- Delete_workload - [coming soon]
 - Create_project - [coming soon]
+- Delete_project - [coming soon]
 - Create_namespace - [coming soon]
+- Delete_namespace - [coming soon]
 - Create_user - [coming soon]
-- Edit_cluster_config - patch any data passed into function - [coming soon]
+- Delete_user - [coming soon]
+- Edit_cluster_config - [coming soon]- patch any data passed into function 
 - Install_chart - [coming soon]
