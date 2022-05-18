@@ -3,16 +3,27 @@
 Automated tests for Rancher using Terraform + Terratest
 
 Provisioning:
-- AKS Clusters
-- RKE1 Clusters
-- RKE2 Clusters
+- AKS
+- RKE1
+- RKE2
+- K3s
+- EKS - [W.I.P]
+- GKE - [comming soon]
 
-Management:
-- Coming soon 
-- Idea: Define "management" functions, which can create, manipulate, and destroy cluster level resources through API calls with go to be used in tests after inital infrastructer is provisioned
+
 
 Functions:
-- Get_cluster_specs - [grabs cluster name, nodeCount, provider, and state] 
+- **GetClusterID**: 
+  - parameters (`url string`, `bearer token string`); returns `string`
+- **GetClusterName**:
+  - parameters (`url string`, `clusterID string`, `bearer token string`); returns `string`
+- **GetClusterNodeCount**:
+  - parameters (`url string`, `clusterID string`, `bearer token string`); returns `int`
+- **GetClusterProvider**:
+  - parameters (`url string`, `clusterID string`, `bearer token string`); returns `string`
+- **GetClusterState**:
+  - parameters (`url string`, `clusterID string`, `bearer token string`); returns `string`
+
 - Add_node_pool - [coming soon]
 - Delete_node_pool - [coming soon]
 - Scale_up_existing_pool - [coming soon]
