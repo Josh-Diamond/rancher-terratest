@@ -8,7 +8,7 @@ Provisioning:
 - RKE2
 - K3s
 - EKS - [W.I.P]
-- GKE - [comming soon]
+- GKE - [coming soon]
 
 
 
