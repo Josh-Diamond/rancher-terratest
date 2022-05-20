@@ -7,11 +7,11 @@ import (
 )
 
 func GetClusterID(hostURL string, token string) string {
-	type ClusterSpecs struct {
+	type clusterSpec struct {
 		Id string `json:"id"`
 	}
 	type clusterResponse struct {
-		Clusters []ClusterSpecs `json:"data"`
+		Clusters []clusterSpec `json:"data"`
 	}
 
 	url := fmt.Sprintf("%s/v3/clusters", hostURL)
@@ -39,6 +39,6 @@ func GetClusterID(hostURL string, token string) string {
 	if err != nil {
 		fmt.Printf("%v", jsonErr)
 	}
-	clusterSpec := clusters.Clusters[0].Id
-	return clusterSpec
+	id := clusters.Clusters[0].Id
+	return id
 }

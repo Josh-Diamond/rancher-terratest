@@ -8,13 +8,13 @@ import (
 
 func GetClusterName(hostURL string, clusterID string, token string) string {
 
-	type ClusterSpecs struct {
-		Name      string `json:"name"`
+	type clusterSpec struct {
+		Name string `json:"name"`
 	}
 
 	url := fmt.Sprintf("%s/v3/clusters/%s", hostURL, clusterID)
 
-	var clusterSpecs ClusterSpecs
+	var spec clusterSpec
 
 	client := http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
@@ -33,10 +33,10 @@ func GetClusterName(hostURL string, clusterID string, token string) string {
 
 	defer res.Body.Close()
 
-	jsonErr := json.NewDecoder(res.Body).Decode(&clusterSpecs)
+	jsonErr := json.NewDecoder(res.Body).Decode(&spec)
 	if err != nil {
 		fmt.Printf("%v", jsonErr)
 	}
-	clusterSpec := clusterSpecs.Name
-	return clusterSpec
+	name := spec.Name
+	return name
 }
