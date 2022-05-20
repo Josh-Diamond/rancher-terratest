@@ -6,12 +6,13 @@ import (
 	"net/http"
 )
 
-func GetClusterID(hostURL string, token string) string {
-	type clusterSpec struct {
-		Id string `json:"id"`
+func GetClusterID(hostURL string, clusterName string, token string) string {
+	type ClusterSpecs struct {
+		Id   string `json:"id"`
+		Name string `json:"name"`
 	}
 	type clusterResponse struct {
-		Clusters []clusterSpec `json:"data"`
+		Clusters []ClusterSpecs `json:"data"`
 	}
 
 	url := fmt.Sprintf("%s/v3/clusters", hostURL)
@@ -39,11 +40,21 @@ func GetClusterID(hostURL string, token string) string {
 	if err != nil {
 		fmt.Printf("%v", jsonErr)
 	}
-	id := clusters.Clusters[0].Id
-	return id
+
+	var clusterSpec string
+
+	for i := 0; i < len(clusters.Clusters); i++ {
+		if clusters.Clusters[i].Name == clusterName {
+			clusterSpec = clusters.Clusters[i].Id
+		}
+	}
+
+	return clusterSpec
 }
 
 // To allow tests to run in parallel, instead of grabbing first cluster object from list of clusters,
-// Modify code accept `clusterName` as a parameter and loop through cluster objects and check that 
-// clusterName matches, if so, return id from that cluster object.  This should always target the 
+// Modify code accept `clusterName` as a parameter and loop through cluster objects and check that
+// clusterName matches, if so, return id from that cluster object.  This should always target the
 // intended cluster and would allow tests to run in parallel without conflict
+//
+// Solution has been implemented but not yet tested with multiple clusters in parallel
