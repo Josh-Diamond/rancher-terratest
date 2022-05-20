@@ -29,8 +29,10 @@ Functions:
   - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
   - description - returns the cluster's current state
 - **WaitForCluster**:
-  - parameters - (`url string`, `bearer token string`); returns `string`
-  - description - will wait until cluster is in an active state and ready-to-test before continuing
+  - parameters - (`url string`, `bearer token string`)
+  - description - waits until cluster is in an active state and ready-to-test before continuing
+  - required - must instantiate in test function after TF `init + apply` and before executing any tests
+    - RKE1
 
 - Generate_token - [coming soon] 
 - Add_node_pool - [coming soon]
