@@ -8,13 +8,13 @@ import (
 
 func GetClusterNodeCount(hostURL string, clusterID string, token string) int {
 
-	type ClusterSpecs struct {
-		NodeCount int    `json:"nodeCount"`
+	type clusterSpec struct {
+		NodeCount int `json:"nodeCount"`
 	}
 
 	url := fmt.Sprintf("%s/v3/clusters/%s", hostURL, clusterID)
 
-	var clusterSpecs ClusterSpecs
+	var spec clusterSpec
 
 	client := http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
@@ -33,10 +33,10 @@ func GetClusterNodeCount(hostURL string, clusterID string, token string) int {
 
 	defer res.Body.Close()
 
-	jsonErr := json.NewDecoder(res.Body).Decode(&clusterSpecs)
+	jsonErr := json.NewDecoder(res.Body).Decode(&spec)
 	if err != nil {
 		fmt.Printf("%v", jsonErr)
-	} 
-	clusterSpec := clusterSpecs.NodeCount
-	return clusterSpec
+	}
+	nodeCount := spec.NodeCount
+	return nodeCount
 }

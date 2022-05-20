@@ -8,13 +8,13 @@ import (
 
 func GetClusterState(hostURL string, clusterID string, token string) string {
 
-	type ClusterSpecs struct {
-		State     string `json:"state"`
+	type clusterSpec struct {
+		State string `json:"state"`
 	}
 
 	url := fmt.Sprintf("%s/v3/clusters/%s", hostURL, clusterID)
 
-	var clusterSpecs ClusterSpecs
+	var spec clusterSpec
 
 	client := http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
@@ -33,10 +33,10 @@ func GetClusterState(hostURL string, clusterID string, token string) string {
 
 	defer res.Body.Close()
 
-	jsonErr := json.NewDecoder(res.Body).Decode(&clusterSpecs)
+	jsonErr := json.NewDecoder(res.Body).Decode(&spec)
 	if err != nil {
 		fmt.Printf("%v", jsonErr)
-	} 
-	clusterSpec := clusterSpecs.State
-	return clusterSpec
+	}
+	state := spec.State
+	return state
 }
