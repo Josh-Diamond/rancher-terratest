@@ -42,3 +42,8 @@ func GetClusterID(hostURL string, token string) string {
 	id := clusters.Clusters[0].Id
 	return id
 }
+
+// To allow tests to run in parallel, instead of grabbing first cluster object from list of clusters,
+// Modify code accept `clusterName` as a parameter and loop through cluster objects and check that 
+// clusterName matches, if so, return id from that cluster object.  This should always target the 
+// intended cluster and would allow tests to run in parallel without conflict
