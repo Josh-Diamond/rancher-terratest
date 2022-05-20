@@ -23,6 +23,10 @@ Functions:
   - parameters (`url string`, `clusterID string`, `bearer token string`); returns `string`
 - **GetClusterState**:
   - parameters (`url string`, `clusterID string`, `bearer token string`); returns `string`
+- **GetProvisioningRke2ClusterID**:
+  - parameters (`url string`, `clusterName string`, `bearer token string`); returns `string`
+- **WaitUntilRke2ClustersActive**:
+  - parameters (`url string`, `clusterName string`, `bearer token string`); returns `string`
 
 - Add_node_pool - [coming soon]
 - Delete_node_pool - [coming soon]
