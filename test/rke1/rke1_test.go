@@ -33,4 +33,4 @@ func TestRke1DownSteamCluster(t *testing.T) {
 // runs tests pre-maturely while cluster is provisioning, and destroys cluster,
 // failing all tests
 //
-// Solution: use WaitUntilClusterIsAvailable() after provisioning and before test cases
+// Solution: use WaitForCluster() after provisioning and before test cases
