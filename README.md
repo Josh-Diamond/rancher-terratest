@@ -29,7 +29,7 @@ Functions:
   - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
   - description - returns the cluster's current state
 - **WaitForCluster**:
-  - parameters - (`url string`, `clusterName string`, `bearer token string`); returns `string`
+  - parameters - (`url string`, `bearer token string`); returns `string`
   - description - will wait until cluster is in an active state and ready-to-test before continuing
 
 - Generate_token - [coming soon] 
