@@ -22,7 +22,7 @@ func TestRke1DownSteamCluster(t *testing.T) {
 
 	functions.WaitForCLuster("URL_HERE", "Bearer_token_here")
 
-	expectedClusterName := "tf-rke1-testt"
+	expectedClusterName := "tf-rke1-test"
 	actualClusterName := terraform.Output(t, terraformOptions, "cluster_name_rke1")
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
