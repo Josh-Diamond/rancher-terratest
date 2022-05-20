@@ -14,8 +14,9 @@ Provisioning:
 
 Functions:
 - **GetClusterID**: 
-  - parameters - (`url string`, `bearer token string`); returns `string`
+  - parameters - (`url string`, `clusterName string`, `bearer token string`); returns `string`
   - description - returns the cluster's id
+  - note - when using with tests, clusterName may be grabbed from TF output and supplied to GetClusterID() function
 - **GetClusterName**:
   - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
   - description - returns the cluster's name
@@ -31,8 +32,7 @@ Functions:
 - **WaitForCluster**:
   - parameters - (`url string`, `bearer token string`)
   - description - waits until cluster is in an active state and ready-to-test before continuing
-  - required - must instantiate in test function after TF `init + apply` and before executing tests
-    - RKE1
+  - note - required for RKE1; must instantiate in test function after TF `init + apply` and before executing tests
 
 - Generate_token - [coming soon] 
 - Add_node_pool - [coming soon]
