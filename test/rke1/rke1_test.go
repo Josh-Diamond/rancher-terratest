@@ -36,3 +36,5 @@ func TestRke1DownSteamCluster(t *testing.T) {
 // RKE1 does not provide clusterID during provisioning, so waitUntilClustersActive() will not work with RKE1 clusters
 // Need more time to think about this; seems like a catch-22, because i won't be able to grab cluster object from /v3/clusters/<unknown_id>
 // without the cluster id
+//
+// New thought: watch /v3/clusters/ without providing an ID, and try to target rke1 cluster data there
