@@ -20,7 +20,7 @@ func TestRke1DownSteamCluster(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
 
-	functions.WaitUntilClusterIsActive("URL_HERE", "Bearer_token_here")
+	functions.WaitForCLuster("URL_HERE", "Bearer_token_here")
 
 	expectedClusterName := "tf-rke1-testt"
 	actualClusterName := terraform.Output(t, terraformOptions, "cluster_name_rke1")
