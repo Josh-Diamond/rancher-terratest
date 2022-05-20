@@ -31,7 +31,7 @@ Functions:
 - **WaitForCluster**:
   - parameters - (`url string`, `bearer token string`)
   - description - waits until cluster is in an active state and ready-to-test before continuing
-  - required - must instantiate in test function after TF `init + apply` and before executing any tests
+  - required - must instantiate in test function after TF `init + apply` and before executing tests
     - RKE1
 
 - Generate_token - [coming soon] 
