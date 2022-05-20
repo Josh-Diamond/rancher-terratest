@@ -1,21 +1,21 @@
 package functions
 
+import "time"
 
-func WaitUntilRke2ClustersActive(hostURL string, clusterName string, token string) bool {
-	id := GetProvisioningRke2ClusterID(hostURL, clusterName, token)
+func WaitUntilClusterIsActive(hostURL string, token string) {
+	id := GetClusterID(hostURL, token)
 	state := GetClusterState(hostURL, id, token)
 	updating := false
 
 	for state != "active" {
 		for state != "active" && !updating {
 			state = GetClusterState(hostURL, id, token)
+			time.Sleep(10 * time.Second)
 			if state == "updating" {
 				updating = true
 			}
 		}
 		state = GetClusterState(hostURL, id, token)
+		time.Sleep(10 * time.Second)
 	}
-
-	return true
-
 }
