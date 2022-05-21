@@ -34,7 +34,7 @@ Functions:
   - description - waits until cluster is in an active state and ready-to-test before continuing
   - note - required for RKE1; must instantiate in test function after TF `init + apply` and before executing tests
 
-- Generate_token - [coming soon] 
+
 - Add_node_pool - [coming soon]
 - Delete_node_pool - [coming soon]
 - Scale_up_existing_pool - [coming soon]
