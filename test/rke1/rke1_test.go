@@ -21,7 +21,7 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	url := terraform.Output(t, terraformOptions, "host_url")
-	token := `Bearer ` + terraform.Output(t, terraformOptions, "bearer_token")
+	token := terraform.Output(t, terraformOptions, "token_type") + terraform.Output(t, terraformOptions, "token")
 	name := terraform.Output(t, terraformOptions, "cluster_name_rke1")
 	functions.WaitForCLuster(url, name, token)
 	id := functions.GetClusterID(url, name, token)
@@ -31,15 +31,15 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
-	expectedClusterNodeCount := 1
+	expectedClusterNodeCount := terraform.Output(t, terraformOptions, "expected_node_count")
 	actualClusterNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, expectedClusterNodeCount, actualClusterNodeCount)
 
-	expectedClusterProvider := "rke"
+	expectedClusterProvider := terraform.Output(t, terraformOptions, "expected_provider")
 	actualClusterProvider := functions.GetClusterProvider(url, id, token)
 	assert.Equal(t, expectedClusterProvider, actualClusterProvider)
 
-	expectedClusterState := "active"
+	expectedClusterState := terraform.Output(t, terraformOptions, "expected_state")
 	actualClusterState := functions.GetClusterState(url, id, token)
 	assert.Equal(t, expectedClusterState, actualClusterState)
 
