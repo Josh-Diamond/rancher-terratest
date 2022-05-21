@@ -3,10 +3,12 @@
 Automated tests for Rancher using Terraform + Terratest
 
 Provisioning:
-- AKS
-- RKE1
-- RKE2
-- K3s
+- AWS Node driver
+  - RKE1
+  - RKE2
+  - K3s
+- Hosted
+  - AKS
 
 
 
