@@ -1,4 +1,4 @@
-output "cluster_name_rke1" {
+output "cluster_name" {
   value = rancher2_cluster.rancher2_cluster.name
 }
 

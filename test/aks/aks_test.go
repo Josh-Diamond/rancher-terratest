@@ -21,7 +21,7 @@ func TestAKSDownStreamCluster(t *testing.T) {
 
 	url := terraform.Output(t, terraformOptions, "host_url")
 	token := terraform.Output(t, terraformOptions, "token_type") + terraform.Output(t, terraformOptions, "token")
-	name := terraform.Output(t, terraformOptions, "cluster_name_aks")
+	name := terraform.Output(t, terraformOptions, "cluster_name")
 	id := functions.GetClusterID(url, name, token)
 
 	

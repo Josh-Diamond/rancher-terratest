@@ -22,8 +22,8 @@ func TestRke1DownStreamCluster(t *testing.T) {
 
 	url := terraform.Output(t, terraformOptions, "host_url")
 	token := terraform.Output(t, terraformOptions, "token_type") + terraform.Output(t, terraformOptions, "token")
-	name := terraform.Output(t, terraformOptions, "cluster_name_rke1")
-	functions.WaitForCLuster(url, name, token)
+	name := terraform.Output(t, terraformOptions, "cluster_name")
+	functions.WaitForActiveCLuster(url, name, token)
 	id := functions.GetClusterID(url, name, token)
 
 
@@ -50,7 +50,7 @@ func TestRke1DownStreamCluster(t *testing.T) {
 // runs tests pre-maturely while cluster is provisioning, then destroys cluster,
 // failing all tests
 //
-// Solution: use WaitForCluster() after provisioning and before test cases
+// Solution: use WaitForActiveCluster() after provisioning and before test cases
 //
-// Additional thought: WaitForCluster() might be useful when adding/deleting node pools or updating the cluster;
+// Additional thought: WaitForActiveCluster() might be useful when adding/deleting node pools or updating the cluster;
 

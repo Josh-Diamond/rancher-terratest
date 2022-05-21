@@ -2,7 +2,7 @@ package functions
 
 import "time"
 
-func WaitForCLuster(hostURL string, clusterName string, token string) {
+func WaitForActiveCLuster(hostURL string, clusterName string, token string) {
 	id := GetClusterID(hostURL, clusterName, token)
 	state := GetClusterState(hostURL, id, token)
 	updating := false
