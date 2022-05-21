@@ -21,3 +21,9 @@ variable network_plugin {}
 variable node_template_name {}
 variable node_hostname_prefix {}
 variable kubernetes_version {}
+
+# Testing variables
+variable token_type {}
+variable expected_node_count {}
+variable expected_provider {}
+variable expected_state {}

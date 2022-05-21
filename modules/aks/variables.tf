@@ -19,3 +19,9 @@ variable availability_zones {}
 variable orchestrator_version {}
 variable os_disk_size_gb {}
 variable vm_size {}
+
+# Testing variables
+variable token_type {}
+variable expected_node_count {}
+variable expected_provider {}
+variable expected_state {}
