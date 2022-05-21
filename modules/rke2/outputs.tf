@@ -7,7 +7,24 @@ output "host_url" {
   sensitive = true
 }
 
-output "bearer_token" {
+output "token" {
   value = var.rancher_admin_bearer_token
   sensitive = true
+}
+
+output "token_type" {
+  value = var.token_type
+  sensitive = true
+}
+
+output "expected_node_count" {
+  value = var.expected_node_count
+}
+
+output "expected_provider" {
+  value = var.expected_provider
+}
+
+output "expected_state" {
+  value = var.expected_state
 }
