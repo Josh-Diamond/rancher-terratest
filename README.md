@@ -16,7 +16,6 @@ Functions:
 - **GetClusterID**: 
   - parameters - (`url string`, `clusterName string`, `bearer token string`); returns `string`
   - description - returns the cluster's id
-  - note - when using with tests, clusterName may be grabbed from TF output and supplied to GetClusterID() function
 - **GetClusterName**:
   - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
   - description - returns the cluster's name
