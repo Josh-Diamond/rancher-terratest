@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRke2DownSteamCluster(t *testing.T) {
+func TestRke2DownStreamCluster(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
@@ -19,26 +19,26 @@ func TestRke2DownSteamCluster(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
 	
-	id := functions.GetClusterID("URL_here", "Bearer_token_here")
+	url := terraform.Output(t, terraformOptions, "host_url")
+	token := `Bearer ` + terraform.Output(t, terraformOptions, "bearer_token")
+	name := terraform.Output(t, terraformOptions, "cluster_name_rke2")
+	id := functions.GetClusterID(url, name, token)
 
-	expectedClusterNameTF := "expected-name"
-	actualClusterNameTF := terraform.Output(t, terraformOptions, "cluster_name_rke2")
-	assert.Equal(t, expectedClusterNameTF, actualClusterNameTF)
-
-	expectedClusterName := "expected-name"
-	actualClusterName := functions.GetClusterName("URL_HERE", id, "Bearer_token_here")
+	
+	expectedClusterName := name
+	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
 	expectedClusterNodeCount := 1
-	actualClusterNodeCount := functions.GetClusterNodeCount("URL_HERE", id, "Bearer_token_here")
+	actualClusterNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, expectedClusterNodeCount, actualClusterNodeCount)
 
-	expectedClusterProvider := "expected-provider"
-	actualClusterProvider := functions.GetClusterProvider("URL_HERE", id, "Bearer_token_here")
+	expectedClusterProvider := "rke2"
+	actualClusterProvider := functions.GetClusterProvider(url, id, token)
 	assert.Equal(t, expectedClusterProvider, actualClusterProvider)
 
-	expectedClusterState := "expected-state"
-	actualClusterState := functions.GetClusterState("URL_HERE", id, "Bearer_token_here")
+	expectedClusterState := "active"
+	actualClusterState := functions.GetClusterState(url, id, token)
 	assert.Equal(t, expectedClusterState, actualClusterState)
 
 }
