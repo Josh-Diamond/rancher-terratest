@@ -3,7 +3,7 @@
 Automated tests for Rancher using Terraform + Terratest
 
 
-Note: default timeout is 10 mins; to extend timeout, add `-timeout <int>m` when running tests; e.g. `go test <testfile>.go -timeout 15m`
+Note: default timeout is 10 mins; to extend timeout, add `-timeout <int>m` when running tests; e.g. `go test <testfile>.go -timeout 30m`
 
 
 Provisioning:
