@@ -47,12 +47,3 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	assert.Equal(t, expectedKubernetesVersion, actualKubernetesVersion)
 
 }
-
-// RKE1 does not wait for cluster to provision before destroying.
-// With RKE1, once the POST req is successful, terraform completes the job,
-// runs tests pre-maturely while cluster is provisioning, then destroys cluster,
-// failing all tests
-//
-// Solution: use WaitForActiveCluster() after provisioning and before test cases
-//
-// Additional thought: WaitForActiveCluster() might be useful when adding/deleting node pools or updating the cluster;
