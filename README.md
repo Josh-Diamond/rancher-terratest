@@ -32,6 +32,12 @@ Functions:
 - **GetClusterState**:
   - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
   - description - returns the cluster's current state
+- **GetKubernetesVersion**:
+  - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
+  - description - returns the cluster's kubernetes version
+- **GetRancherServerVersion**:
+  - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
+  - description - returns rancher's server version
 - **WaitForActiveCluster**:
   - parameters - (`url string`, `clusterName string`, `bearer token string`)
   - description - waits until cluster is in an active state and ready-to-test before continuing
