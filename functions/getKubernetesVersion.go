@@ -42,4 +42,3 @@ func GetKubernetesVersion(hostURL string, clusterID string, token string) string
 
 	return version.Version.GitVersion
 }
-// Needs to be tested
