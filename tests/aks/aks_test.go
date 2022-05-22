@@ -1,4 +1,4 @@
-package test
+package tests
 
 import (
 	"testing"
@@ -8,12 +8,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRke1DownStreamCluster(t *testing.T) {
+func TestAKSDownStreamCluster(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
-		TerraformDir: "../../modules/rke1",
+		TerraformDir: "../../modules/aks",
 		NoColor:      true,
 	})
 
@@ -23,7 +23,6 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	url := terraform.Output(t, terraformOptions, "host_url")
 	token := terraform.Output(t, terraformOptions, "token_type") + terraform.Output(t, terraformOptions, "token")
 	name := terraform.Output(t, terraformOptions, "cluster_name")
-	functions.WaitForActiveCLuster(url, name, token)
 	id := functions.GetClusterID(url, name, token)
 
 	expectedClusterName := name
@@ -45,14 +44,4 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	expectedKubernetesVersion := terraform.Output(t, terraformOptions, "expected_kubernetes_version")
 	actualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
 	assert.Equal(t, expectedKubernetesVersion, actualKubernetesVersion)
-
 }
-
-// RKE1 does not wait for cluster to provision before destroying.
-// With RKE1, once the POST req is successful, terraform completes the job,
-// runs tests pre-maturely while cluster is provisioning, then destroys cluster,
-// failing all tests
-//
-// Solution: use WaitForActiveCluster() after provisioning and before test cases
-//
-// Additional thought: WaitForActiveCluster() might be useful when adding/deleting node pools or updating the cluster;
