@@ -26,7 +26,6 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	functions.WaitForActiveCLuster(url, name, token)
 	id := functions.GetClusterID(url, name, token)
 
-
 	expectedClusterName := name
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
@@ -43,6 +42,10 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	actualClusterState := functions.GetClusterState(url, id, token)
 	assert.Equal(t, expectedClusterState, actualClusterState)
 
+	expectedKubernetesVersion := terraform.Output(t, terraformOptions, "expected_kubernetes_version")
+	actualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
+	assert.Equal(t, expectedKubernetesVersion, actualKubernetesVersion)
+
 }
 
 // RKE1 does not wait for cluster to provision before destroying.
@@ -53,4 +56,3 @@ func TestRke1DownStreamCluster(t *testing.T) {
 // Solution: use WaitForActiveCluster() after provisioning and before test cases
 //
 // Additional thought: WaitForActiveCluster() might be useful when adding/deleting node pools or updating the cluster;
-

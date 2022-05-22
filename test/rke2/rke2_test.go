@@ -41,4 +41,8 @@ func TestRke2DownStreamCluster(t *testing.T) {
 	actualClusterState := functions.GetClusterState(url, id, token)
 	assert.Equal(t, expectedClusterState, actualClusterState)
 
+	expectedKubernetesVersion := terraform.Output(t, terraformOptions, "expected_kubernetes_version")
+	actualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
+	assert.Equal(t, expectedKubernetesVersion, actualKubernetesVersion)
+
 }

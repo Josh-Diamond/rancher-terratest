@@ -27,3 +27,4 @@ variable token_type {}
 variable expected_node_count {}
 variable expected_provider {}
 variable expected_state {}
+variable expected_kubernetes_version {}
