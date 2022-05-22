@@ -28,3 +28,7 @@ output "expected_provider" {
 output "expected_state" {
   value = var.expected_state
 }
+
+output "expected_kubernetes_version" {
+  value = var.expected_kubernetes_version
+}
