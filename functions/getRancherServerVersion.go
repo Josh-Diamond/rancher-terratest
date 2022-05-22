@@ -17,7 +17,7 @@ func GetRancherServerVersion(hostURL string, clusterID string, token string) str
 
 	url := fmt.Sprintf("%s/v3/clusters/%s", hostURL, clusterID)
 
-	var variables clusterResponse
+	var agentEnvVars clusterResponse
 
 	client := http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
@@ -36,14 +36,14 @@ func GetRancherServerVersion(hostURL string, clusterID string, token string) str
 
 	defer res.Body.Close()
 
-	jsonErr := json.NewDecoder(res.Body).Decode(&variables)
+	jsonErr := json.NewDecoder(res.Body).Decode(&agentEnvVars)
 	if err != nil {
 		fmt.Printf("%v", jsonErr)
 	}
 
 	var serverVersion string
 
-	for _, vars := range variables.AgentEnvVars {
+	for _, vars := range agentEnvVars.AgentEnvVars {
 		if vars.Name == "CATTLE_SERVER_VERSION" {
 			serverVersion = vars.Value
 		}
@@ -51,4 +51,3 @@ func GetRancherServerVersion(hostURL string, clusterID string, token string) str
 
 	return serverVersion
 }
-// Needs to be tested
