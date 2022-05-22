@@ -43,11 +43,19 @@ func GetClusterID(hostURL string, clusterName string, token string) string {
 
 	var clusterSpec string
 
-	for i := 0; i < len(clusters.Clusters); i++ {
-		if clusters.Clusters[i].Name == clusterName {
-			clusterSpec = clusters.Clusters[i].Id
+	// refactor below needs to be tested before commented out section is removed
+
+	for _, cluster := range clusters.Clusters {
+		if cluster.Name == clusterName {
+			clusterSpec = cluster.Id
 		}
 	}
+
+	// for i := 0; i < len(clusters.Clusters); i++ {
+	// 	if clusters.Clusters[i].Name == clusterName {
+	// 		clusterSpec = clusters.Clusters[i].Id
+	// 	}
+	// }
 
 	return clusterSpec
 }
