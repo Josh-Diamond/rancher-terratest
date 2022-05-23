@@ -21,8 +21,9 @@ variable os_disk_size_gb {}
 variable vm_size {}
 
 # Testing variables
-variable token_type {}
+variable token_prefix {}
 variable expected_node_count {}
 variable expected_provider {}
 variable expected_state {}
 variable expected_kubernetes_version {}
+variable expected_rancher_server_version {}
