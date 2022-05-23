@@ -12,8 +12,8 @@ output "token" {
   sensitive = true
 }
 
-output "token_type" {
-  value = var.token_type
+output "token_prefix" {
+  value = var.token_prefix
   sensitive = true
 }
 
@@ -31,4 +31,8 @@ output "expected_state" {
 
 output "expected_kubernetes_version" {
   value = var.expected_kubernetes_version
+}
+
+output "expected_rancher_server_version" {
+  value = var.expected_rancher_server_version
 }

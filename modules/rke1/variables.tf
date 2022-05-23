@@ -23,8 +23,9 @@ variable node_hostname_prefix {}
 variable kubernetes_version {}
 
 # Testing variables
-variable token_type {}
+variable token_prefix {}
 variable expected_node_count {}
 variable expected_provider {}
 variable expected_state {}
 variable expected_kubernetes_version {}
+variable expected_rancher_server_version {}
