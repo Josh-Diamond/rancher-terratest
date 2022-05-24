@@ -29,7 +29,8 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
-	expectedClusterNodeCount := terraform.Output(t, terraformOptions, "expected_node_count")
+	// TF output returns the value as type string, which will fail tests, as that's not the expected type from rancher server
+	expectedClusterNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "expected_node_count"))
 	actualClusterNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, expectedClusterNodeCount, actualClusterNodeCount)
 
@@ -48,4 +49,5 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	expectedRancherServerVersion := terraform.Output(t, terraformOptions, "expected_rancher_server_version")
 	actualRancherServerVersion := functions.GetRancherServerVersion(url, id, token)
 	assert.Equal(t, expectedRancherServerVersion, actualRancherServerVersion)
+
 }
