@@ -38,6 +38,9 @@ Functions:
 - **GetRancherServerVersion**:
   - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
   - description - returns rancher's server version
+- **GetUserID**:
+  - parameters - (`url string`, `bearer token string`); returns `string`
+  - description - returns admin user id
 - **OutputToInt**:
   - parameters - (`output string`); returns `int`
   - description - returns tf output as type int
