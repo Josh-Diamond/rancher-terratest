@@ -40,7 +40,7 @@ Functions:
   - description - returns rancher's server version
 - **OutputToInt**:
   - parameters - (`output string`); returns `int`
-  - description - returns tf output as type `int`
+  - description - returns tf output as type int
   - note - tf outputs values as type string; this is not always desired, as actual values coming from rancher server will be various types
 - **WaitForActiveCluster**:
   - parameters - (`url string`, `clusterName string`, `bearer token string`)
