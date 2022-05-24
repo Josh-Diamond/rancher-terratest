@@ -38,6 +38,10 @@ Functions:
 - **GetRancherServerVersion**:
   - parameters - (`url string`, `clusterID string`, `bearer token string`); returns `string`
   - description - returns rancher's server version
+- **OutputToInt**:
+  - parameters - (`output string`); returns `int`
+  - description - returns tf output as type `int`
+  - note - tf outputs values as type string; this is not always desired, as actual values coming from rancher server will be various types
 - **WaitForActiveCluster**:
   - parameters - (`url string`, `clusterName string`, `bearer token string`)
   - description - waits until cluster is in an active state and ready-to-test before continuing
