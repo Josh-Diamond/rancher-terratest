@@ -30,7 +30,7 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
-	expectedClusterNodeCount := terraform.Output(t, terraformOptions, "expected_node_count")
+	expectedClusterNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "expected_node_count"))
 	actualClusterNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, expectedClusterNodeCount, actualClusterNodeCount)
 
