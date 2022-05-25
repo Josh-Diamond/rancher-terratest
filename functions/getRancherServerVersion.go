@@ -15,7 +15,7 @@ func GetRancherServerVersion(hostURL string, token string) string {
 
 	type clusterSpecs struct {
 		Id  string `json:"id"`
-		Dataa nestedData `json:"data"`
+		Data nestedData `json:"data"`
 	}
 
 	type clusterResponse struct {
@@ -48,7 +48,7 @@ func GetRancherServerVersion(hostURL string, token string) string {
 		fmt.Printf("%v", jsonErr)
 	}
 
-	clippedID := strings.Trim(response.Data[0].Dataa.Version, `"`)
+	clippedID := strings.Trim(response.Data[0].Data.Version, `"`)
 
 	return clippedID
 }
@@ -57,7 +57,7 @@ func GetRancherServerVersion(hostURL string, token string) string {
 
 
 // local seems to be more reliable as it is available as soon as the server is launched; 
-// Downstream needs cluster before it can retrieved
+// Downstream needs cluster before it can be retrieved
 //
 //
 // From downstream cluster
