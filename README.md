@@ -20,7 +20,7 @@ Functions:
 - **UpdateNodePoolsTF**: 
   - parameters - (`provider string`, `quantity int`, `nodecount int`, `role string`); returns `bool`
   - description - provisions [quantity] pools with [nodecount] nodes with [role] role; returns true if successful
-  - Note - This will not change, modify,or delete initially provisioned node pool; This function is used to add pools and removed or modify any node pools added after inital infrastructure provisioning. Providing a quantity of 0 will restore cluster to initially provisioned cluster
+  - Note - This will not change, modify, or delete initially provisioned node pool; This function is used to add pools and removed or modify any node pools added after inital infrastructure provisioning. Providing a quantity of 0 will restore cluster to initially provisioned node pool
 - **GetClusterID**: 
   - parameters - (`url string`, `clusterName string`, `bearer token string`); returns `string`
   - description - returns the cluster's id
