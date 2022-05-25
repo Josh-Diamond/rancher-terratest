@@ -45,6 +45,10 @@ Functions:
   - parameters - (`output string`); returns `int`
   - description - returns tf output as type int
   - note - tf outputs values as type string; this is not always desired, as actual values coming from rancher server will be various types
+- **UpdateConfig**:
+  - parameters - (`config string`, `module string`)
+  - description - accepts a new "main.tf" config for a specified module and updates the existing main.tf file with new config
+  - note - when using with terratest, you will have to run terraform.Appy() afterwards to initiate the updates
 - **WaitForActiveCluster**:
   - parameters - (`url string`, `clusterName string`, `bearer token string`)
   - description - waits until cluster is in an active state and ready-to-test before continuing
