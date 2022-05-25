@@ -3,7 +3,7 @@ package functions
 import "strconv"
 
 // This page is has string literals specifically formatted which should not be modified;
-func UpdateNodePools(provider string, poolcount int, nodecount int, role string) bool {
+func UpdateNodePoolsTF(provider string, poolcount int, nodecount int, role string) bool {
 	switch {
 	case provider == "aks":
 		if poolcount == 0 {
