@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+// This page is has string literals formatted specifically which should not be modified; W.I.P.
 func UpdateNodePoolsTF(provider string, poolcount int, nodecount int, role string ) bool {
 	switch {
 	case provider == "aks":
