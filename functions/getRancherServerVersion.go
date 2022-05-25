@@ -15,7 +15,7 @@ func GetRancherServerVersion(hostURL string, token string) string {
 
 	type clusterSpecs struct {
 		Id  string `json:"id"`
-		Dataa nestedData `json:"data"`
+		Data nestedData `json:"data"`
 	}
 
 	type clusterResponse struct {
@@ -48,7 +48,7 @@ func GetRancherServerVersion(hostURL string, token string) string {
 		fmt.Printf("%v", jsonErr)
 	}
 
-	clippedID := strings.Trim(response.Data[0].Dataa.Version, `"`)
+	clippedID := strings.Trim(response.Data[0].Data.Version, `"`)
 
 	return clippedID
 }
