@@ -3,15 +3,15 @@ package functions
 import "strconv"
 
 // This page is has string literals specifically formatted which should not be modified;
-func UpdateNodePoolsTF(provider string, poolcount int, nodecount int, role string) bool {
+func UpdateNodePoolsTF(provider string, quantity int, nodecount int, role string) bool {
 	switch {
 	case provider == "aks":
-		if poolcount == 0 {
+		if quantity == 0 {
 			return false
 		}
 		poolConfig := ``
 		name := 2
-		for i := 1; i <= poolcount; i++ {
+		for i := 1; i <= quantity; i++ {
 			poolNum := strconv.Itoa(name)
 			count := strconv.Itoa(nodecount)
 			poolConfig = poolConfig + `
@@ -71,12 +71,12 @@ resource "rancher2_cluster" "rancher2_cluster" {
 		UpdateConfigTF(config, provider)
 		return true
 	case provider == "rke":
-		if poolcount == 0 {
+		if quantity == 0 {
 			return false
 		}
 		poolConfig := ``
 		name := 2
-		for i := 1; i <= poolcount; i++ {
+		for i := 1; i <= quantity; i++ {
 			poolNum := strconv.Itoa(name)
 			count := strconv.Itoa(nodecount)
 			etcd := "false"
@@ -177,12 +177,12 @@ resource "rancher2_node_pool" "pool1" {
 		UpdateConfigTF(config, provider)
 		return true
 	case provider == "rke2" || provider == "k3s":
-		if poolcount == 0 {
+		if quantity == 0 {
 			return false
 		}
 		poolConfig := ``
 		name := 2
-		for i := 1; i <= poolcount; i++ {
+		for i := 1; i <= quantity; i++ {
 			poolNum := strconv.Itoa(name)
 			count := strconv.Itoa(nodecount)
 			etcd := "false"
