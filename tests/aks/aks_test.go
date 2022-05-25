@@ -47,7 +47,7 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	assert.Equal(t, expectedKubernetesVersion, actualKubernetesVersion)
 
 	expectedRancherServerVersion := terraform.Output(t, terraformOptions, "expected_rancher_server_version")
-	actualRancherServerVersion := functions.GetRancherServerVersion(url, id, token)
+	actualRancherServerVersion := functions.GetRancherServerVersion(url, token)
 	assert.Equal(t, expectedRancherServerVersion, actualRancherServerVersion)
 
 }
