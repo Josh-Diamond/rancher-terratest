@@ -57,7 +57,7 @@ func GetRancherServerVersion(hostURL string, token string) string {
 
 
 // local seems to be more reliable as it is available as soon as the server is launched; 
-// Downstream needs cluster before it can retrieved
+// Downstream needs cluster before it can be retrieved
 //
 //
 // From downstream cluster
