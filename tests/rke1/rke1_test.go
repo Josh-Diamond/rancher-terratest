@@ -57,7 +57,7 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	assert.Equal(t, expectedRancherServerVersion, actualRancherServerVersion)
 
 	// Adds 3 node pools; each with 1 all-roles node
-	updatedNodePools := functions.UpdateNodePoolsTF("rke", 3, 1, "all")
+	updatedNodePools := functions.UpdateNodePoolsTF(actualClusterProvider, 3, 1, "all")
 	assert.Equal(t, updatedNodePools, true)
 
 	terraformApplyUpdate()

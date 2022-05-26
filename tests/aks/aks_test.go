@@ -58,7 +58,7 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	// Adds 3 node pools; each with 1 node
 	updatedNodePools := functions.UpdateNodePoolsTF(actualClusterProvider, 3, 1, "")
 	assert.Equal(t, updatedNodePools, true)
-	
+
 	terraformApplyUpdate()
 	functions.WaitForActiveCLuster(url, name, token)
 	time.Sleep(30 * time.Second)
