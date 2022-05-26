@@ -20,6 +20,3 @@ func UpdateConfigTF(config string, module string) {
 		fmt.Println(err)
 	}
 }
-
-// experimental - UpdateConfigTF will take in a string literal of the updated main.tf config and overwrite the previous main.tf
-// Thought here was to be able to let terraform add/delete node pools and manipulate resources, instead of building API calls using Go
