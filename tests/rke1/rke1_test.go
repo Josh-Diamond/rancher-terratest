@@ -2,6 +2,7 @@ package tests
 
 import (
 	"testing"
+	"time"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/josh-diamond/rancher-terratest/functions"
@@ -19,6 +20,11 @@ func TestRke1DownStreamCluster(t *testing.T) {
 
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
+
+	terraformApplyUpdate := func() {
+		terraform.Apply(t, terraformOptions)
+		terraform.Apply(t, terraformOptions)
+	}
 
 	url := terraform.Output(t, terraformOptions, "host_url")
 	token := terraform.Output(t, terraformOptions, "token_prefix") + terraform.Output(t, terraformOptions, "token")
@@ -49,5 +55,30 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	expectedRancherServerVersion := terraform.Output(t, terraformOptions, "expected_rancher_server_version")
 	actualRancherServerVersion := functions.GetRancherServerVersion(url, token)
 	assert.Equal(t, expectedRancherServerVersion, actualRancherServerVersion)
+
+	// Adds 3 node pools; each with 1 all-roles node
+	updatedNodePools := functions.UpdateNodePoolsTF("rke", 3, 1, "all")
+	assert.Equal(t, updatedNodePools, true)
+
+	terraformApplyUpdate()
+	functions.WaitForActiveCLuster(url, name, token)
+	time.Sleep(30 * time.Second)
+	functions.WaitForActiveCLuster(url, name, token)
+
+	expectedPostUpdate1TotalNodeCount := 4
+	actualPostUpdate1NodeCount := functions.GetClusterNodeCount(url, id, token)
+	assert.Equal(t, expectedPostUpdate1TotalNodeCount, actualPostUpdate1NodeCount)
+
+	// Delete 3 node pools added above
+	updatedNodePools2 := functions.UpdateNodePoolsTF(actualClusterProvider, 0, 0, "")
+	assert.Equal(t, updatedNodePools2, true)
+
+	terraformApplyUpdate()
+	functions.WaitForActiveCLuster(url, name, token)
+	time.Sleep(30 * time.Second)
+	functions.WaitForActiveCLuster(url, name, token)
+
+	actualPostUpdate2TotalNodeCount := functions.GetClusterNodeCount(url, id, token)
+	assert.Equal(t, expectedClusterNodeCount, actualPostUpdate2TotalNodeCount)
 
 }
