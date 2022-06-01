@@ -57,3 +57,6 @@ Functions:
   - parameters - (`url string`, `clusterName string`, `bearer token string`)
   - description - waits until cluster is in an active state and ready-to-test before continuing
   - note - required for RKE1; must instantiate in test function after TF `init + apply` and before executing tests
+
+
+To add a test with terratest, simple create a new _test.go file in the `tests` folder and begin writing your test!
