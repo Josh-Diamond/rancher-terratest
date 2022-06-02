@@ -13,6 +13,11 @@ type Nodepool struct {
 	Wkr      string `json:"wkr"`
 }
 
+// Goal use main.go to build tf configurations and build terratest-plans for those configurations
+// Configurations will be backed up and easily reverted to for testing purposes
+// Build a UI that allows you to build tf configs and allow options to select pre-built tests to be applied for each config
+// Once you have your sequence of configs and test cases for each config, use the UI to "run" tests
+
 func main() {
 	// Select from the following modules:
 	// "aks", "rke1", "rke2"
