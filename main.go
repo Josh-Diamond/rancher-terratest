@@ -11,6 +11,8 @@ import (
 // Build a UI that allows you to build tf configs and allow options to select pre-built tests to be applied for each config
 // Once you have your sequence of configs and test cases for each config, you'll be able to run tests and view results
 
+// Currently supports building tf module configurations - view comments in func main() for instruction
+
 type Nodepool struct {
 	Quantity int    `json:"quantity"`
 	Etcd     string `json:"etcd"`
@@ -18,7 +20,6 @@ type Nodepool struct {
 	Wkr      string `json:"wkr"`
 }
 
-// Currently supports building tf module configurations
 
 func main() {
 	// Select from the following modules:
