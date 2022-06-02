@@ -4,7 +4,7 @@ import (
 	"strconv"
 )
 
-// This page is has string literals specifically formatted which should not be modified;
+// This page will likely be deleted pending SetConfigTF() completion
 func UpdateNodePoolsTF(provider string, quantity int, nodecount int, role string) bool {
 	switch {
 	case provider == "aks":
@@ -183,8 +183,8 @@ resource "rancher2_node_pool" "pool1" {
   etcd             = true 
   worker           = true 
 }
-`			
-			UpdateConfigTF(config, provider + `1`)
+`
+			UpdateConfigTF(config, provider+`1`)
 			return true
 		}
 
@@ -289,9 +289,9 @@ resource "rancher2_node_pool" "pool1" {
   worker           = true 
 }
 		  ` + poolConfig + `
-	`		
-			
-			UpdateConfigTF(config, provider + `1`)
+	`
+
+			UpdateConfigTF(config, provider+`1`)
 			return true
 		}
 	case provider == "rke2" || provider == "k3s":
