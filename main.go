@@ -6,6 +6,11 @@ import (
 	"strconv"
 )
 
+// Goal use main.go to build tf configurations and build terratest-plans for those configurations
+// Configurations will be backed up and easily reverted to for testing purposes
+// Build a UI that allows you to build tf configs and allow options to select pre-built tests to be applied for each config
+// Once you have your sequence of configs and test cases for each config, you'll be able to run tests and view results
+
 type Nodepool struct {
 	Quantity int    `json:"quantity"`
 	Etcd     string `json:"etcd"`
@@ -13,10 +18,7 @@ type Nodepool struct {
 	Wkr      string `json:"wkr"`
 }
 
-// Goal use main.go to build tf configurations and build terratest-plans for those configurations
-// Configurations will be backed up and easily reverted to for testing purposes
-// Build a UI that allows you to build tf configs and allow options to select pre-built tests to be applied for each config
-// Once you have your sequence of configs and test cases for each config, you'll be able to run tests and view results
+// Currently supports building tf module configurations
 
 func main() {
 	// Select from the following modules:
