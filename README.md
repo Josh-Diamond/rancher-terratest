@@ -1,4 +1,5 @@
 # rancher-terratest
+### Refactoring; will update readme.md soon
 
 Automated tests for Rancher using Terraform + Terratest
 
@@ -17,7 +18,7 @@ Provisioning:
 
 
 Functions:
-- **UpdateNodePoolsTF**: 
+- **UpdateNodePoolsTF**: - (depreciated; deleting soon) 
   - parameters - (`provider string`, `quantity int`, `nodecount int`, `role string`); returns `bool`
   - description - provisions [quantity] pools with [nodecount] nodes with [role] role; returns true if successful
   - Note - This will not change, modify, or delete initially provisioned node pool; This function is used to add pools and removed or modify any node pools added after inital infrastructure provisioning. Providing a quantity of 0 will restore cluster to initially provisioned node pool
@@ -49,7 +50,10 @@ Functions:
   - parameters - (`output string`); returns `int`
   - description - returns tf output as type int
   - note - tf outputs values as type string; this is not always desired, as actual values coming from rancher server will be various types
-- **UpdateConfigTF**:
+- **SetConfigTF**: - (coming soon; functional in main.go)
+  - parameters - n/a
+  - description - n/a
+- **UpdateConfigTF**: - (depreciated; deleting soon) 
   - parameters - (`config string`, `module string`)
   - description - accepts a new "main.tf" config for a specified module and updates the existing main.tf file with new config
   - note - when using with terratest, you will have to run terraform.Appy() afterwards to initiate the updates
