@@ -27,7 +27,7 @@ func main() {
 	module := "rke2"
 
 	// Customize your desired node pools
-	// Update append() on line 75 to include desired node pools
+	// Update append() on line 83 to include desired node pools
 	// Run `go run main.go` from root directory to build config
 	pool1 := Nodepool{
 		Quantity: 1,
