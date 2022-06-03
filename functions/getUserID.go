@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-
+// unused
 func GetUserID(hostURL string, token string) string {
 	type clusterSpecs struct {
 		Id  string `json:"id"`
