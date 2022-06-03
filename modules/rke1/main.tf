@@ -1,9 +1,9 @@
 terraform {
   required_providers {
-    rancher2 = {
+	rancher2 = {
 	  source  = "rancher/rancher2"
 	  version = "1.22.2"
-	 }
+	}
   }
 }
 
@@ -24,13 +24,13 @@ resource "rancher2_cloud_credential" "rancher2_cloud_credential" {
 resource "rancher2_cluster" "rancher2_cluster" {
   name = var.cluster_name
   rke_config {
-	  kubernetes_version = var.kubernetes_version
+    kubernetes_version = var.kubernetes_version
 	  network {
 	    plugin = var.network_plugin
 	  }
   }
 }
-	  
+
 resource "rancher2_node_template" "rancher2_node_template" {
   name = var.node_template_name
   amazonec2_config {
@@ -48,77 +48,11 @@ resource "rancher2_node_template" "rancher2_node_template" {
 }
 
 resource "rancher2_node_pool" "pool1" {
-  cluster_id       = rancher2_cluster.rancher2_cluster.id
-  name             = "pool1"
+	cluster_id       = rancher2_cluster.rancher2_cluster.id
+	name             = "pool1"
   hostname_prefix  = var.node_hostname_prefix
   node_template_id = rancher2_node_template.rancher2_node_template.id
   quantity         = 1
-  control_plane    = true
-  etcd             = true 
-  worker           = true 
-}
-
-resource "rancher2_node_pool" "pool2" {
-  cluster_id       = rancher2_cluster.rancher2_cluster.id
-  name             = "pool2"
-  hostname_prefix  = var.node_hostname_prefix
-  node_template_id = rancher2_node_template.rancher2_node_template.id
-  quantity         = 2
-  control_plane    = true
-  etcd             = false 
-  worker           = true 
-}
-
-resource "rancher2_node_pool" "pool3" {
-  cluster_id       = rancher2_cluster.rancher2_cluster.id
-  name             = "pool3"
-  hostname_prefix  = var.node_hostname_prefix
-  node_template_id = rancher2_node_template.rancher2_node_template.id
-  quantity         = 3
-  control_plane    = false
-  etcd             = true 
-  worker           = true 
-}
-
-resource "rancher2_node_pool" "pool4" {
-  cluster_id       = rancher2_cluster.rancher2_cluster.id
-  name             = "pool4"
-  hostname_prefix  = var.node_hostname_prefix
-  node_template_id = rancher2_node_template.rancher2_node_template.id
-  quantity         = 4
-  control_plane    = true
-  etcd             = true 
-  worker           = false 
-}
-
-resource "rancher2_node_pool" "pool5" {
-  cluster_id       = rancher2_cluster.rancher2_cluster.id
-  name             = "pool5"
-  hostname_prefix  = var.node_hostname_prefix
-  node_template_id = rancher2_node_template.rancher2_node_template.id
-  quantity         = 5
-  control_plane    = false
-  etcd             = false 
-  worker           = true 
-}
-
-resource "rancher2_node_pool" "pool6" {
-  cluster_id       = rancher2_cluster.rancher2_cluster.id
-  name             = "pool6"
-  hostname_prefix  = var.node_hostname_prefix
-  node_template_id = rancher2_node_template.rancher2_node_template.id
-  quantity         = 6
-  control_plane    = true
-  etcd             = false 
-  worker           = false 
-}
-
-resource "rancher2_node_pool" "pool7" {
-  cluster_id       = rancher2_cluster.rancher2_cluster.id
-  name             = "pool7"
-  hostname_prefix  = var.node_hostname_prefix
-  node_template_id = rancher2_node_template.rancher2_node_template.id
-  quantity         = 7
   control_plane    = true
   etcd             = true 
   worker           = true 
