@@ -50,9 +50,9 @@ Functions:
   - parameters - (`output string`); returns `int`
   - description - returns tf output as type int
   - note - tf outputs values as type string; this is not always desired, as actual values coming from rancher server will be various types
-- **SetConfigTF**: - (coming soon; functional in main.go)
-  - parameters - n/a
-  - description - n/a
+- **SetConfigTF**: 
+  - parameters - (`module string`, `config []models.Nodepool`; returns `bool`
+  - description - sets config of desired module and overwrites exiting main.tf
 - **UpdateConfigTF**: - (depreciated; deleting soon) 
   - parameters - (`config string`, `module string`)
   - description - accepts a new "main.tf" config for a specified module and updates the existing main.tf file with new config
