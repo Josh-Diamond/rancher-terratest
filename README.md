@@ -1,5 +1,4 @@
 # rancher-terratest
-### Refactored - will update tests and readme soon
 
 Automated tests for Rancher using Terraform + Terratest
 
