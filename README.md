@@ -3,10 +3,6 @@
 
 Automated tests for Rancher using Terraform + Terratest
 
-
-Note: Tests that timeout will likely not have called `terraform destroy`, and as a result, resources will not be cleaned up properly. Extending the test timeout is a best practice. The default timeout when testing with Go is 10 mins; to extend timeout, add `-timeout <int>m` when running tests; e.g. `go test <testfile>.go -timeout 30m`
-
-
 Provisioning:
 - AWS Node driver
   - RKE1
@@ -64,3 +60,5 @@ Functions:
 
 Testing:
 To add a test with terratest, simple create a new _test.go file in the `tests` folder and begin writing your test!
+
+Note: Tests that timeout will likely not have called `terraform destroy`, and as a result, resources will not be cleaned up properly. Extending the test timeout is a best practice. The default timeout when testing with Go is 10 mins; to extend timeout, add `-timeout <int>m` when running tests; e.g. `go test <testfile>.go -timeout 30m`
