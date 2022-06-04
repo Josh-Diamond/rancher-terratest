@@ -1,5 +1,5 @@
 output "cluster_name" {
-  value = rancher2_cluster.rancher2_cluster.name
+  value = rancher2_cluster_v2.rancher2_cluster_v2.name
 }
 
 output "host_url" {
@@ -17,30 +17,22 @@ output "token_prefix" {
   sensitive = true
 }
 
-output "config1_expected_node_count" {
+output "expected_node_count" {
   value = var.expected_node_count
 }
 
-output "config1_expected_provider" {
+output "expected_provider" {
   value = var.expected_provider
 }
 
-output "config1_expected_state" {
+output "expected_state" {
   value = var.expected_state
 }
 
-output "config1_expected_kubernetes_version" {
+output "expected_kubernetes_version" {
   value = var.expected_kubernetes_version
 }
 
-output "config1_expected_rancher_server_version" {
+output "expected_rancher_server_version" {
   value = var.expected_rancher_server_version
-}
-
-output "config2_expected_node_count" {
-  value = var.config2_expected_node_count
-}
-
-output "config3_expected_node_count" {
-  value = var.config3_expected_node_count
 }

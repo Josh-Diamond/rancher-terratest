@@ -8,5 +8,5 @@ import (
 
 func main() {
 	config.BuildConfig1()
-	functions.SetConfigTF(config.Module, config.Config1)
+	functions.SetConfigTF(config.K3s, config.Config1)
 }

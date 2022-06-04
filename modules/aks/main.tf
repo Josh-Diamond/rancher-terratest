@@ -15,7 +15,7 @@ provider "rancher2" {
 resource "rancher2_cloud_credential" "rancher2_cloud_credential" {
   name = var.cloud_credential_name
   azure_credential_config {
-    client_id       = var.azure_client_id
+  client_id       = var.azure_client_id
 	client_secret   = var.azure_client_secret
 	subscription_id = var.azure_subscription_id
   }
@@ -33,7 +33,7 @@ resource "rancher2_cluster" "rancher2_cluster" {
     node_pools {
 	  availability_zones = var.availability_zones
 	  name = "pool1"
-      count = 1
+      count = 3
       orchestrator_version = var.orchestrator_version
       os_disk_size_gb = var.os_disk_size_gb
       vm_size = var.vm_size

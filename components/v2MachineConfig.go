@@ -1,6 +1,6 @@
 package components
 
-var MachineConfigV2 = `resource "rancher2_machine_config_v2" "rancher2_machine_config_v2" {
+var V2MachineConfig = `resource "rancher2_machine_config_v2" "rancher2_machine_config_v2" {
   generate_name = var.machine_config_name
   amazonec2_config {
 	ami            = var.aws_ami
