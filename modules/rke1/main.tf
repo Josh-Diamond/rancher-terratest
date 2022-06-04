@@ -57,3 +57,4 @@ resource "rancher2_node_pool" "pool1" {
   etcd             = true 
   worker           = true 
 }
+

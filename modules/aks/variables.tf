@@ -22,8 +22,10 @@ variable vm_size {}
 
 # Testing variables
 variable token_prefix {}
-variable expected_node_count {}
-variable expected_provider {}
-variable expected_state {}
-variable expected_kubernetes_version {}
-variable expected_rancher_server_version {}
+variable config1_expected_node_count {}
+variable config1_expected_provider {}
+variable config1_expected_state {}
+variable config1_expected_kubernetes_version {}
+variable config1_expected_rancher_server_version {}
+variable config2_expected_node_count {}
+variable config3_expected_node_count {}

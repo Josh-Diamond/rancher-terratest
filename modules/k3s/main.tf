@@ -40,7 +40,7 @@ resource "rancher2_cluster_v2" "rancher2_cluster_v2" {
     control_plane_role           = true
     etcd_role                    = true
     worker_role                  = true
-    quantity                     = 1
+    quantity                     = 3
       machine_config {
         kind = rancher2_machine_config_v2.rancher2_machine_config_v2.kind
         name = rancher2_machine_config_v2.rancher2_machine_config_v2.name
