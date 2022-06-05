@@ -48,7 +48,7 @@ Functions:
   - description - waits until cluster is in an active state
 
 Testing:
-To add a test with terratest, simple create a new _test.go file in the `tests` folder and begin writing your test!
+- To add a test with terratest, simple create a new _test.go file in the `tests` folder and begin writing your test!
 
 Note: 
 - The default timeout when testing with Go is 10 mins.  
