@@ -52,6 +52,7 @@ Testing:
 
 Note: 
 - The default timeout when testing with Go is 10 mins.  
-- To extend timeout, add `-timeout <int>m` when running tests; e.g. `go test <testfile>.go -timeout 45m || go test <testfile>.go -timeout 1h`. 
+- To extend timeout, add `-timeout <int>m` when running tests; 
+  - e.g. `go test <testfile>.go -timeout 45m || go test <testfile>.go -timeout 1h`. 
 - Tests that timeout will likely not have resources cleaned up properly. 
 - Extending the test timeout is a best practice. 
