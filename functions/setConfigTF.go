@@ -9,7 +9,7 @@ import (
 	"github.com/josh-diamond/rancher-terratest/models"
 )
 
-func SetConfigTF(module string, nodePools []models.Nodepool) bool {
+func SetConfigTF(module string, k8sVersion string, nodePools []models.Nodepool) bool {
 
 	config := components.RequiredProviders + components.Provider
 
@@ -37,10 +37,10 @@ func SetConfigTF(module string, nodePools []models.Nodepool) bool {
 					fmt.Println(`Invalid quantity specified for pool` + poolNum + `; Quantity must be greater than 0`)
 					return false
 				}
-				poolConfig = poolConfig + components.AKSNodePoolPrefix + poolNum + components.AKSNodePoolBody + quantity + components.AKSNodePoolSuffix
+				poolConfig = poolConfig + components.AKSNodePoolPrefix + poolNum + components.AKSNodePoolBody + quantity + components.AKSNodePoolBody2 + k8sVersion + components.AKSNodePoolSuffix
 				num = num + 1
 			}
-			config = config + components.AKSClusterPrefix + poolConfig + components.AKSClusterSuffix
+			config = config + components.AKSClusterPrefix + k8sVersion + components.AKSClusterSpecs1 + poolConfig + components.AKSClusterSuffix
 			_, err = f.WriteString(config)
 
 			if err != nil {
@@ -50,7 +50,7 @@ func SetConfigTF(module string, nodePools []models.Nodepool) bool {
 			return true
 
 		case module == "rke1":
-			config = config + components.ResourceEC2CloudCredentials + components.RKE1Cluster + components.RKE1NodeTemplate
+			config = config + components.ResourceEC2CloudCredentials + components.RKE1ClusterPrefix + k8sVersion + components.RKE1ClusterSuffix + components.RKE1NodeTemplate
 			poolConfig := ``
 			num := 1
 			for _, pool := range nodePools {
@@ -95,7 +95,7 @@ func SetConfigTF(module string, nodePools []models.Nodepool) bool {
 				poolConfig = poolConfig + components.V2MachinePoolsPrefix + poolNum + components.V2MachinePoolsSpecs1 + pool.Cp + components.V2MachinePoolsSpecs2 + pool.Etcd + components.V2MachinePoolsSpecs3 + pool.Wkr + components.V2MachinePoolsSpecs4 + quantity + components.V2MachinePoolsSuffix
 				num = num + 1
 			}
-			config = config + components.V2ClusterPrefix + poolConfig + components.V2ClusterSuffix
+			config = config + components.V2ClusterPrefix + k8sVersion + components.V2ClusterBody + poolConfig + components.V2ClusterSuffix
 
 			_, err = f.WriteString(config)
 

@@ -15,6 +15,23 @@ var Rke1 = "rke1"
 var Rke2 = "rke2"
 var K3s  = "k3s"
 
+// K8s Version e. g. format
+// AKS  - "1.22.6"
+// RKE1 - "v1.23.6-rancher1-1"
+// RKE2 - "v1.23.6+rke2r2"
+// K3s  - "v1.23.6+k3s1"
+var Config1AKSK8sVersion = "1.22.6"
+var Config2AKSK8sVersion = "1.23.5"
+
+var Config1RKE1K8sVersion = "v1.22.9-rancher1-1"
+var Config2RKE1K8sVersion = "v1.23.6-rancher1-1"
+
+var Config1RKE2K8sVersion = "v1.22.9+rke2r2"
+var Config2RKE2K8sVersion = "v1.23.6+rke2r2"
+
+var Config1K3sK8sVersion = "v1.22.9+k3s1"
+var Config2K3sK8sVersion = "v1.23.6+k3s1"
+
 // Customize your desired node pools for Config1
 // Update append() on (line 40) to include desired node pools
 // For multiple configurations, repeat steps for desired node pools
@@ -26,7 +43,7 @@ var K3s  = "k3s"
 // It will not export otherwise and will be unaccessible during the terratest
 // Repeat steps for multiple configs to test against
 
-// Config1
+// NodePools1
 var pool1 = models.Nodepool{
 	Quantity: 1,
 	Etcd:     "true",
@@ -48,13 +65,13 @@ var pool3 = models.Nodepool{
 	Wkr:      "true",
 }
 
-var Config1 []models.Nodepool
+var NodePools1 []models.Nodepool
 
-func BuildConfig1() {
-	Config1 = append(Config1, pool1, pool2, pool3)
+func BuildNodePools1() {
+	NodePools1 = append(NodePools1, pool1, pool2, pool3)
 }
 
-// Config2
+// NodePools2
 var pool4 = models.Nodepool{
 	Quantity: 3,
 	Etcd:     "true",
@@ -76,13 +93,13 @@ var pool6 = models.Nodepool{
 	Wkr:      "true",
 }
 
-var Config2 []models.Nodepool
+var NodePools2 []models.Nodepool
 
-func BuildConfig2() {
-	Config2 = append(Config2, pool4, pool5, pool6)
+func BuildNodePools2() {
+	NodePools2 = append(NodePools2, pool4, pool5, pool6)
 }
 
-// Config3
+// NodePools3
 var pool7 = models.Nodepool{
 	Quantity: 3,
 	Etcd:     "true",
@@ -104,8 +121,8 @@ var pool9 = models.Nodepool{
 	Wkr:      "true",
 }
 
-var Config3 []models.Nodepool
+var NodePools3 []models.Nodepool
 
-func BuildConfig3() {
-	Config3 = append(Config3, pool7, pool8, pool9)
+func BuildNodePools3() {
+	NodePools3 = append(NodePools3, pool7, pool8, pool9)
 }

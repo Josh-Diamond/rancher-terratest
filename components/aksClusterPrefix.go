@@ -6,7 +6,5 @@ var AKSClusterPrefix = `resource "rancher2_cluster" "rancher2_cluster" {
     cloud_credential_id = rancher2_cloud_credential.rancher2_cloud_credential.id
     resource_group = var.resource_group
     resource_location = var.resource_location
-	  dns_prefix = var.dns_prefix
-	  kubernetes_version = var.kubernetes_version
-	  network_plugin = var.network_plugin
-`
+    dns_prefix = var.dns_prefix
+    kubernetes_version = "`
