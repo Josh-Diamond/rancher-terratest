@@ -2,7 +2,6 @@ package tests
 
 import (
 	"testing"
-	// "time"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/josh-diamond/rancher-terratest/config"
@@ -10,16 +9,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAKSDownStreamCluster(t *testing.T) {
+func TestK3sDownStreamCluster(t *testing.T) {
 	t.Parallel()
 
 	config.BuildConfig1()
-	config1 := functions.SetConfigTF(config.Aks, config.Config1)
+	config1 := functions.SetConfigTF(config.K3s, config.Config1)
 	assert.Equal(t, true, config1)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
-		TerraformDir: "../../modules/aks",
+		TerraformDir: "../../modules/k3s",
 		NoColor:      true,
 	})
 
@@ -35,14 +34,13 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
-	// TF output returns the value as type string, which will fail tests, as that's not the expected type from rancher server
 	config1ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config1_expected_node_count"))
 	config1ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config1ExpectedNodeCount, config1ActualNodeCount)
 
-	config1ExpectedClusterProvider := terraform.Output(t, terraformOptions, "config1_expected_provider")
+	config1ExpectedProvider := terraform.Output(t, terraformOptions, "config1_expected_provider")
 	config1ActualProvider := functions.GetClusterProvider(url, id, token)
-	assert.Equal(t, config1ExpectedClusterProvider, config1ActualProvider)
+	assert.Equal(t, config1ExpectedProvider, config1ActualProvider)
 
 	config1ExpectedState := terraform.Output(t, terraformOptions, "config1_expected_state")
 	config1ActualState := functions.GetClusterState(url, id, token)
@@ -56,23 +54,21 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	config1ActualRancherServerVersion := functions.GetRancherServerVersion(url, token)
 	assert.Equal(t, config1ExpectedRancherServerVersion, config1ActualRancherServerVersion)
 
-	// Builds + Sets Config2 + tests if successful
+	// Config2
 	config.BuildConfig2()
-	config2 := functions.SetConfigTF(config.Aks, config.Config2)
+	config2 := functions.SetConfigTF(config.K3s, config.Config2)
 	assert.Equal(t, true, config2)
-	// TF Applies Config2
-	// terraformApplyUpdate()
+
 	terraform.Apply(t, terraformOptions)
 	functions.WaitForActiveCLuster(url, name, token)
 
-	// Test against Config2
 	config2ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config2_expected_node_count"))
 	config2ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config2ExpectedNodeCount, config2ActualNodeCount)
 
 	// Config3
 	config.BuildConfig3()
-	config3 := functions.SetConfigTF(config.Aks, config.Config3)
+	config3 := functions.SetConfigTF(config.K3s, config.Config3)
 	assert.Equal(t, true, config3)
 
 	terraform.Apply(t, terraformOptions)

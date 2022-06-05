@@ -37,8 +37,32 @@ resource "rancher2_cluster_v2" "rancher2_cluster_v2" {
     machine_pools {
 	  name                         = "pool1"
     cloud_credential_secret_name = data.rancher2_cloud_credential.rancher2_cloud_credential.id
-    control_plane_role           = true
+    control_plane_role           = false
     etcd_role                    = true
+    worker_role                  = false
+    quantity                     = 3
+      machine_config {
+        kind = rancher2_machine_config_v2.rancher2_machine_config_v2.kind
+        name = rancher2_machine_config_v2.rancher2_machine_config_v2.name
+      }
+    }
+    machine_pools {
+	  name                         = "pool2"
+    cloud_credential_secret_name = data.rancher2_cloud_credential.rancher2_cloud_credential.id
+    control_plane_role           = true
+    etcd_role                    = false
+    worker_role                  = false
+    quantity                     = 2
+      machine_config {
+        kind = rancher2_machine_config_v2.rancher2_machine_config_v2.kind
+        name = rancher2_machine_config_v2.rancher2_machine_config_v2.name
+      }
+    }
+    machine_pools {
+	  name                         = "pool3"
+    cloud_credential_secret_name = data.rancher2_cloud_credential.rancher2_cloud_credential.id
+    control_plane_role           = false
+    etcd_role                    = false
     worker_role                  = true
     quantity                     = 1
       machine_config {

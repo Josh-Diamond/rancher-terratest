@@ -53,8 +53,30 @@ resource "rancher2_node_pool" "pool1" {
   hostname_prefix  = var.node_hostname_prefix
   node_template_id = rancher2_node_template.rancher2_node_template.id
   quantity         = 1
-  control_plane    = true
+  control_plane    = false
   etcd             = true 
+  worker           = false 
+}
+
+resource "rancher2_node_pool" "pool2" {
+	cluster_id       = rancher2_cluster.rancher2_cluster.id
+	name             = "pool2"
+  hostname_prefix  = var.node_hostname_prefix
+  node_template_id = rancher2_node_template.rancher2_node_template.id
+  quantity         = 1
+  control_plane    = true
+  etcd             = false 
+  worker           = false 
+}
+
+resource "rancher2_node_pool" "pool3" {
+	cluster_id       = rancher2_cluster.rancher2_cluster.id
+	name             = "pool3"
+  hostname_prefix  = var.node_hostname_prefix
+  node_template_id = rancher2_node_template.rancher2_node_template.id
+  quantity         = 1
+  control_plane    = false
+  etcd             = false 
   worker           = true 
 }
 

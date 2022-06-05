@@ -14,7 +14,7 @@ func SetConfigTF(module string, nodePools []models.Nodepool) bool {
 	config := components.RequiredProviders + components.Provider
 
 	if module == "aks" || module == "rke1" || module == "rke2" || module == "k3s" {
-		f, err := os.Create("./modules/" + module + "/main.tf")
+		f, err := os.Create("../../modules/" + module + "/main.tf")
 		if err != nil {
 			fmt.Println(err)
 		}

@@ -18,23 +18,23 @@ output "token_prefix" {
 }
 
 output "config1_expected_node_count" {
-  value = var.expected_node_count
+  value = var.config1_expected_node_count
 }
 
 output "config1_expected_provider" {
-  value = var.expected_provider
+  value = var.config1_expected_provider
 }
 
 output "config1_expected_state" {
-  value = var.expected_state
+  value = var.config1_expected_state
 }
 
 output "config1_expected_kubernetes_version" {
-  value = var.expected_kubernetes_version
+  value = var.config1_expected_kubernetes_version
 }
 
 output "config1_expected_rancher_server_version" {
-  value = var.expected_rancher_server_version
+  value = var.config1_expected_rancher_server_version
 }
 
 output "config2_expected_node_count" {

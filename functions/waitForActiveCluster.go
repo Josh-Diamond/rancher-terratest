@@ -3,11 +3,11 @@ package functions
 import "time"
 
 func WaitForActiveCLuster(hostURL string, clusterName string, token string) {
+	time.Sleep(10 * time.Second)
+
 	id := GetClusterID(hostURL, clusterName, token)
 	state := GetClusterState(hostURL, id, token)
 	updating := false
-
-	time.Sleep(11 * time.Second)
 
 	for state != "active" {
 		for state != "active" && !updating {
@@ -20,4 +20,5 @@ func WaitForActiveCLuster(hostURL string, clusterName string, token string) {
 		state = GetClusterState(hostURL, id, token)
 		time.Sleep(10 * time.Second)
 	}
+	time.Sleep(5 * time.Second)
 }
