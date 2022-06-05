@@ -11,12 +11,7 @@ Provisioning:
   - AKS
 
 
-
 Functions:
-- **UpdateNodePoolsTF**: - (depreciated; deleting soon) 
-  - parameters - (`provider string`, `quantity int`, `nodecount int`, `role string`); returns `bool`
-  - description - provisions [quantity] pools with [nodecount] nodes with [role] role; returns true if successful
-  - Note - This will not change, modify, or delete initially provisioned node pool; This function is used to add pools and removed or modify any node pools added after inital infrastructure provisioning. Providing a quantity of 0 will restore cluster to initially provisioned node pool
 - **GetClusterID**: 
   - parameters - (`url string`, `clusterName string`, `bearer token string`); returns `string`
   - description - returns the cluster's id
@@ -44,18 +39,13 @@ Functions:
 - **OutputToInt**:
   - parameters - (`output string`); returns `int`
   - description - returns tf output as type int
-  - note - tf outputs values as type string; this is not always desired, as actual values coming from rancher server will be various types
+  - note - tf outputs values as type string;
 - **SetConfigTF**: 
   - parameters - (`module string`, `config []models.Nodepool`; returns `bool`
   - description - sets config of desired module and overwrites exiting main.tf
-- **UpdateConfigTF**: - (depreciated; deleting soon) 
-  - parameters - (`config string`, `module string`)
-  - description - accepts a new "main.tf" config for a specified module and updates the existing main.tf file with new config
-  - note - when using with terratest, you will have to run terraform.Appy() afterwards to initiate the updates
 - **WaitForActiveCluster**:
   - parameters - (`url string`, `clusterName string`, `bearer token string`)
-  - description - waits until cluster is in an active state and ready-to-test before continuing
-  - note - required for RKE1; must instantiate in test function after TF `init + apply` and before executing tests
+  - description - waits until cluster is in an active state
 
 Testing:
 To add a test with terratest, simple create a new _test.go file in the `tests` folder and begin writing your test!
