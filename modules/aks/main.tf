@@ -38,5 +38,21 @@ resource "rancher2_cluster" "rancher2_cluster" {
       os_disk_size_gb = var.os_disk_size_gb
       vm_size = var.vm_size
     }
+    node_pools {
+	  availability_zones = var.availability_zones
+	  name = "pool2"
+      count = 2
+      orchestrator_version = var.orchestrator_version
+      os_disk_size_gb = var.os_disk_size_gb
+      vm_size = var.vm_size
+    }
+    node_pools {
+	  availability_zones = var.availability_zones
+	  name = "pool3"
+      count = 1
+      orchestrator_version = var.orchestrator_version
+      os_disk_size_gb = var.os_disk_size_gb
+      vm_size = var.vm_size
+    }
   }
 }

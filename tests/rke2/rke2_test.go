@@ -2,15 +2,19 @@ package tests
 
 import (
 	"testing"
-	"time"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/josh-diamond/rancher-terratest/config"
 	"github.com/josh-diamond/rancher-terratest/functions"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestRke2DownStreamCluster(t *testing.T) {
 	t.Parallel()
+
+	config.BuildConfig1()
+	config1 := functions.SetConfigTF(config.Rke2, config.Config1)
+	assert.Equal(t, true, config1)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
@@ -21,11 +25,6 @@ func TestRke2DownStreamCluster(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
 
-	terraformApplyUpdate := func() {
-		terraform.Apply(t, terraformOptions)
-		terraform.Apply(t, terraformOptions)
-	}
-
 	url := terraform.Output(t, terraformOptions, "host_url")
 	token := terraform.Output(t, terraformOptions, "token_prefix") + terraform.Output(t, terraformOptions, "token")
 	name := terraform.Output(t, terraformOptions, "cluster_name")
@@ -35,49 +34,48 @@ func TestRke2DownStreamCluster(t *testing.T) {
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
-	expectedClusterNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "expected_node_count"))
-	actualClusterNodeCount := functions.GetClusterNodeCount(url, id, token)
-	assert.Equal(t, expectedClusterNodeCount, actualClusterNodeCount)
+	config1ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config1_expected_node_count"))
+	config1ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
+	assert.Equal(t, config1ExpectedNodeCount, config1ActualNodeCount)
 
-	expectedClusterProvider := terraform.Output(t, terraformOptions, "expected_provider")
-	actualClusterProvider := functions.GetClusterProvider(url, id, token)
-	assert.Equal(t, expectedClusterProvider, actualClusterProvider)
+	config1ExpectedProvider := terraform.Output(t, terraformOptions, "config1_expected_provider")
+	config1ActualProvider := functions.GetClusterProvider(url, id, token)
+	assert.Equal(t, config1ExpectedProvider, config1ActualProvider)
 
-	expectedClusterState := terraform.Output(t, terraformOptions, "expected_state")
-	actualClusterState := functions.GetClusterState(url, id, token)
-	assert.Equal(t, expectedClusterState, actualClusterState)
+	config1ExpectedState := terraform.Output(t, terraformOptions, "config1_expected_state")
+	config1ActualState := functions.GetClusterState(url, id, token)
+	assert.Equal(t, config1ExpectedState, config1ActualState)
 
-	expectedKubernetesVersion := terraform.Output(t, terraformOptions, "expected_kubernetes_version")
-	actualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
-	assert.Equal(t, expectedKubernetesVersion, actualKubernetesVersion)
+	config1ExpectedKubernetesVersion := terraform.Output(t, terraformOptions, "config1_expected_kubernetes_version")
+	config1ActualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
+	assert.Equal(t, config1ExpectedKubernetesVersion, config1ActualKubernetesVersion)
 
-	expectedRancherServerVersion := terraform.Output(t, terraformOptions, "expected_rancher_server_version")
-	actualRancherServerVersion := functions.GetRancherServerVersion(url, token)
-	assert.Equal(t, expectedRancherServerVersion, actualRancherServerVersion)
+	config1ExpectedRancherServerVersion := terraform.Output(t, terraformOptions, "config1_expected_rancher_server_version")
+	config1ActualRancherServerVersion := functions.GetRancherServerVersion(url, token)
+	assert.Equal(t, config1ExpectedRancherServerVersion, config1ActualRancherServerVersion)
 
-	// Adds 3 node pools; each with 1 etcd node
-	updatedNodePools := functions.UpdateNodePoolsTF(actualClusterProvider, 3, 1, "etcd")
-	assert.Equal(t, updatedNodePools, true)
+	// Config2
+	config.BuildConfig2()
+	config2 := functions.SetConfigTF(config.Rke2, config.Config2)
+	assert.Equal(t, true, config2)
 
-	terraformApplyUpdate()
-	functions.WaitForActiveCLuster(url, name, token)
-	time.Sleep(30 * time.Second)
-	functions.WaitForActiveCLuster(url, name, token)
-
-	expectedPostUpdate1TotalNodeCount := 4
-	actualPostUpdate1NodeCount := functions.GetClusterNodeCount(url, id, token)
-	assert.Equal(t, expectedPostUpdate1TotalNodeCount, actualPostUpdate1NodeCount)
-
-	// Delete 3 node pools added above
-	updatedNodePools2 := functions.UpdateNodePoolsTF(actualClusterProvider, 0, 0, "")
-	assert.Equal(t, updatedNodePools2, true)
-
-	terraformApplyUpdate()
-	functions.WaitForActiveCLuster(url, name, token)
-	time.Sleep(30 * time.Second)
+	terraform.Apply(t, terraformOptions)
 	functions.WaitForActiveCLuster(url, name, token)
 
-	actualPostUpdate2TotalNodeCount := functions.GetClusterNodeCount(url, id, token)
-	assert.Equal(t, expectedClusterNodeCount, actualPostUpdate2TotalNodeCount)
+	config2ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config2_expected_node_count"))
+	config2ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
+	assert.Equal(t, config2ExpectedNodeCount, config2ActualNodeCount)
+
+	// Config3
+	config.BuildConfig3()
+	config3 := functions.SetConfigTF(config.Rke2, config.Config3)
+	assert.Equal(t, true, config3)
+
+	terraform.Apply(t, terraformOptions)
+	functions.WaitForActiveCLuster(url, name, token)
+
+	config3ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config3_expected_node_count"))
+	config3ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
+	assert.Equal(t, config3ExpectedNodeCount, config3ActualNodeCount)
 
 }

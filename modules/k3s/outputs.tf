@@ -17,22 +17,30 @@ output "token_prefix" {
   sensitive = true
 }
 
-output "expected_node_count" {
-  value = var.expected_node_count
+output "config1_expected_node_count" {
+  value = var.config1_expected_node_count
 }
 
-output "expected_provider" {
-  value = var.expected_provider
+output "config1_expected_provider" {
+  value = var.config1_expected_provider
 }
 
-output "expected_state" {
-  value = var.expected_state
+output "config1_expected_state" {
+  value = var.config1_expected_state
 }
 
-output "expected_kubernetes_version" {
-  value = var.expected_kubernetes_version
+output "config1_expected_kubernetes_version" {
+  value = var.config1_expected_kubernetes_version
 }
 
-output "expected_rancher_server_version" {
-  value = var.expected_rancher_server_version
+output "config1_expected_rancher_server_version" {
+  value = var.config1_expected_rancher_server_version
+}
+
+output "config2_expected_node_count" {
+  value = var.config2_expected_node_count
+}
+
+output "config3_expected_node_count" {
+  value = var.config3_expected_node_count
 }

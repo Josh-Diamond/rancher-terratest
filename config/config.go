@@ -28,34 +28,48 @@ var K3s  = "k3s"
 
 // Config1
 var pool1 = models.Nodepool{
-	Quantity: 3,
+	Quantity: 1,
 	Etcd:     "true",
+	Cp:       "false",
+	Wkr:      "false",
+}
+
+var pool2 = models.Nodepool{
+	Quantity: 1,
+	Etcd:     "false",
 	Cp:       "true",
+	Wkr:      "false",
+}
+
+var pool3 = models.Nodepool{
+	Quantity: 1,
+	Etcd:     "false",
+	Cp:       "false",
 	Wkr:      "true",
 }
 
 var Config1 []models.Nodepool
 
 func BuildConfig1() {
-	Config1 = append(Config1, pool1)
+	Config1 = append(Config1, pool1, pool2, pool3)
 }
 
 // Config2
-var pool2 = models.Nodepool{
+var pool4 = models.Nodepool{
 	Quantity: 3,
 	Etcd:     "true",
 	Cp:       "false",
 	Wkr:      "false",
 }
 
-var pool3 = models.Nodepool{
+var pool5 = models.Nodepool{
 	Quantity: 2,
 	Etcd:     "false",
 	Cp:       "true",
 	Wkr:      "false",
 }
 
-var pool4 = models.Nodepool{
+var pool6 = models.Nodepool{
 	Quantity: 3,
 	Etcd:     "false",
 	Cp:       "false",
@@ -65,19 +79,33 @@ var pool4 = models.Nodepool{
 var Config2 []models.Nodepool
 
 func BuildConfig2() {
-	Config2 = append(Config2, pool2, pool3, pool4)
+	Config2 = append(Config2, pool4, pool5, pool6)
 }
 
 // Config3
-var pool5 = models.Nodepool{
-	Quantity: 1,
+var pool7 = models.Nodepool{
+	Quantity: 3,
 	Etcd:     "true",
+	Cp:       "false",
+	Wkr:      "false",
+}
+
+var pool8 = models.Nodepool{
+	Quantity: 2,
+	Etcd:     "false",
 	Cp:       "true",
+	Wkr:      "false",
+}
+
+var pool9 = models.Nodepool{
+	Quantity: 1,
+	Etcd:     "false",
+	Cp:       "false",
 	Wkr:      "true",
 }
 
 var Config3 []models.Nodepool
 
 func BuildConfig3() {
-	Config3 = append(Config3, pool5)
+	Config3 = append(Config3, pool7, pool8, pool9)
 }
