@@ -30,4 +30,5 @@ variable config1_expected_state {}
 variable config1_expected_kubernetes_version {}
 variable config1_expected_rancher_server_version {}
 variable config2_expected_node_count {}
+variable config2_expected_kubernetes_version {}
 variable config3_expected_node_count {}

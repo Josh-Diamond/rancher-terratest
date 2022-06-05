@@ -13,8 +13,8 @@ import (
 func TestAKSDownStreamCluster(t *testing.T) {
 	t.Parallel()
 
-	config.BuildConfig1()
-	config1 := functions.SetConfigTF(config.Aks, config.Config1)
+	config.BuildNodePools1()
+	config1 := functions.SetConfigTF(config.Aks, config.Config1AKSK8sVersion, config.NodePools1)
 	assert.Equal(t, true, config1)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
@@ -57,8 +57,8 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	assert.Equal(t, config1ExpectedRancherServerVersion, config1ActualRancherServerVersion)
 
 	// Builds + Sets Config2 + tests if successful
-	config.BuildConfig2()
-	config2 := functions.SetConfigTF(config.Aks, config.Config2)
+	config.BuildNodePools2()
+	config2 := functions.SetConfigTF(config.Aks, config.Config2AKSK8sVersion, config.NodePools2)
 	assert.Equal(t, true, config2)
 	// TF Applies Config2
 	// terraformApplyUpdate()
@@ -70,9 +70,13 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	config2ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config2ExpectedNodeCount, config2ActualNodeCount)
 
-	// Config3
-	config.BuildConfig3()
-	config3 := functions.SetConfigTF(config.Aks, config.Config3)
+	config2ExpectedKubernetesVersion := terraform.Output(t, terraformOptions, "config2_expected_kubernetes_version")
+	config2ActualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
+	assert.Equal(t, config2ExpectedKubernetesVersion, config2ActualKubernetesVersion)
+
+	// Config3 
+	config.BuildNodePools3()
+	config3 := functions.SetConfigTF(config.Aks, config.Config2AKSK8sVersion, config.NodePools3)
 	assert.Equal(t, true, config3)
 
 	terraform.Apply(t, terraformOptions)
