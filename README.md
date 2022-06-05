@@ -41,7 +41,7 @@ Functions:
   - description - returns tf output as type int
   - note - tf outputs values as type string;
 - **SetConfigTF**: 
-  - parameters - (`module string`, `config []models.Nodepool`; returns `bool`
+  - parameters - (`module string`, `k8sVersion string`, `nodepools []models.Nodepool`; returns `bool`
   - description - sets config of desired module and overwrites exiting main.tf
 - **WaitForActiveCluster**:
   - parameters - (`url string`, `clusterName string`, `bearer token string`)
