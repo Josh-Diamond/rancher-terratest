@@ -20,5 +20,5 @@ func WaitForActiveCLuster(hostURL string, clusterName string, token string) {
 		state = GetClusterState(hostURL, id, token)
 		time.Sleep(10 * time.Second)
 	}
-	time.Sleep(5 * time.Second)
+	time.Sleep(10 * time.Second)
 }

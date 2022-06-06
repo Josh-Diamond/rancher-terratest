@@ -42,7 +42,7 @@ output "config2_expected_node_count" {
 }
 
 output "config2_expected_kubernetes_version" {
-  value = varl.config2_expected_kubernetes_version
+  value = var.config2_expected_kubernetes_version
 }
 
 output "config3_expected_node_count" {

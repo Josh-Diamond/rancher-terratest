@@ -19,7 +19,6 @@ variable machine_config_name {}
 variable cluster_name {}
 variable enable_network_policy {}
 variable default_cluster_role_for_project_members {}
-variable kubernetes_version {}
 
 # Testing variables
 variable token_prefix {}
@@ -29,4 +28,5 @@ variable config1_expected_state {}
 variable config1_expected_kubernetes_version {}
 variable config1_expected_rancher_server_version {}
 variable config2_expected_node_count {}
+variable config2_expected_kubernetes_version {}
 variable config3_expected_node_count {}
