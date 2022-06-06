@@ -15,22 +15,18 @@ var Rke1 = "rke1"
 var Rke2 = "rke2"
 var K3s  = "k3s"
 
-// K8s Version e. g. format
-// AKS  - "1.22.6"
-// RKE1 - "v1.23.6-rancher1-1"
-// RKE2 - "v1.23.6+rke2r2"
-// K3s  - "v1.23.6+k3s1"
-var Config1AKSK8sVersion = "1.22.6"
-var Config2AKSK8sVersion = "1.23.5"
+// K8s versions
+var AKSK8sVersion1219 = "1.21.9"
+var AKSK8sVersion1226 = "1.22.6"
 
-var Config1RKE1K8sVersion = "v1.22.9-rancher1-1"
-var Config2RKE1K8sVersion = "v1.23.6-rancher1-1"
+var RKE1K8sVersion1229 = "v1.22.9-rancher1-1"
+var RKE1K8sVersion1236 = "v1.23.6-rancher1-1"
 
-var Config1RKE2K8sVersion = "v1.22.9+rke2r2"
-var Config2RKE2K8sVersion = "v1.23.6+rke2r2"
+var RKE2K8sVersion1229 = "v1.22.9+rke2r2"
+var RKE2K8sVersion1236 = "v1.23.6+rke2r2"
 
-var Config1K3sK8sVersion = "v1.22.9+k3s1"
-var Config2K3sK8sVersion = "v1.23.6+k3s1"
+var K3sK8sVersion1229 = "v1.22.9+k3s1"
+var K3sK8sVersion1236 = "v1.23.6+k3s1"
 
 // Customize your desired node pools for Config1
 // Update append() on (line 40) to include desired node pools

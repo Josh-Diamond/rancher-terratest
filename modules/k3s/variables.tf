@@ -19,7 +19,6 @@ variable machine_config_name {}
 variable cluster_name {}
 variable enable_network_policy {}
 variable default_cluster_role_for_project_members {}
-variable kubernetes_version {}
 
 # Testing variables
 variable token_prefix {}

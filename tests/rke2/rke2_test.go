@@ -12,8 +12,9 @@ import (
 func TestRke2DownStreamCluster(t *testing.T) {
 	t.Parallel()
 
+	// Set initial infrastructure by building TFs declarative config file - [main.tf]
 	config.BuildNodePools1()
-	config1 := functions.SetConfigTF(config.Rke2, config.Config1RKE2K8sVersion, config.NodePools1)
+	config1 := functions.SetConfigTF(config.Rke2, config.RKE2K8sVersion1229, config.NodePools1)
 	assert.Equal(t, true, config1)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
@@ -22,14 +23,17 @@ func TestRke2DownStreamCluster(t *testing.T) {
 		NoColor:      true,
 	})
 
+	// Deploys [main.tf] infrastructure and sets up resource cleanup
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
 
+	// Grab variables for reference w/ testing functions below
 	url := terraform.Output(t, terraformOptions, "host_url")
 	token := terraform.Output(t, terraformOptions, "token_prefix") + terraform.Output(t, terraformOptions, "token")
 	name := terraform.Output(t, terraformOptions, "cluster_name")
 	id := functions.GetClusterID(url, name, token)
 
+	// Test cluster
 	expectedClusterName := name
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
@@ -54,30 +58,41 @@ func TestRke2DownStreamCluster(t *testing.T) {
 	config1ActualRancherServerVersion := functions.GetRancherServerVersion(url, token)
 	assert.Equal(t, config1ExpectedRancherServerVersion, config1ActualRancherServerVersion)
 
-	// Config2
+	// Upgrade k8s version
+	upgradedK8s := functions.SetConfigTF(config.Rke2, config.RKE2K8sVersion1236, config.NodePools1)
+	assert.Equal(t, true, upgradedK8s)
+
+	terraform.Apply(t, terraformOptions)
+	functions.WaitForActiveCLuster(url, name, token)
+
+	// Test cluster
+	config2ExpectedKubernetesVersion := terraform.Output(t, terraformOptions, "config2_expected_kubernetes_version")
+	config2ActualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
+	assert.Equal(t, config2ExpectedKubernetesVersion, config2ActualKubernetesVersion)
+
+	// Scale to HA setup - 3 node pools: [3 etcd], [2 cp], [3 wkr]
 	config.BuildNodePools2()
-	config2 := functions.SetConfigTF(config.Rke2, config.Config2RKE2K8sVersion, config.NodePools2)
+	config2 := functions.SetConfigTF(config.Rke2, config.RKE2K8sVersion1236, config.NodePools2)
 	assert.Equal(t, true, config2)
 
 	terraform.Apply(t, terraformOptions)
 	functions.WaitForActiveCLuster(url, name, token)
 
+	// Test cluster
 	config2ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config2_expected_node_count"))
 	config2ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config2ExpectedNodeCount, config2ActualNodeCount)
 
-	config2ExpectedKubernetesVersion := terraform.Output(t, terraformOptions, "config2_expected_kubernetes_version")
-	config2ActualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
-	assert.Equal(t, config2ExpectedKubernetesVersion, config2ActualKubernetesVersion)
 
-	// Config3
+	// Scale Wkr pool to one - 3 node pools: [3 etcd], [2 cp], [1 wkr]
 	config.BuildNodePools3()
-	config3 := functions.SetConfigTF(config.Rke2, config.Config2RKE2K8sVersion, config.NodePools3)
+	config3 := functions.SetConfigTF(config.Rke2, config.RKE2K8sVersion1236, config.NodePools3)
 	assert.Equal(t, true, config3)
 
 	terraform.Apply(t, terraformOptions)
 	functions.WaitForActiveCLuster(url, name, token)
 
+	// Test cluster
 	config3ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config3_expected_node_count"))
 	config3ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config3ExpectedNodeCount, config3ActualNodeCount)

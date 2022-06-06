@@ -13,10 +13,8 @@ variable cluster_name {}
 variable resource_group {}
 variable resource_location {}
 variable dns_prefix {}
-variable kubernetes_version {}
 variable network_plugin {}
 variable availability_zones {}
-variable orchestrator_version {}
 variable os_disk_size_gb {}
 variable vm_size {}
 
