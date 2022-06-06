@@ -12,6 +12,9 @@ Provisioning:
 
 
 Functions:
+- **CleanupConfigTF**:
+  - parameters - (`module string`);
+  - description - cleans up main.tf at specified module
 - **GetClusterID**: 
   - parameters - (`url string`, `clusterName string`, `bearer token string`); returns `string`
   - description - returns the cluster's id
