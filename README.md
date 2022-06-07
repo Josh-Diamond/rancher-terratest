@@ -53,14 +53,7 @@ Functions:
 Testing:
 - Create and export configuration specs in config.go, to later reference in tests
 - Create a new _test.go file in the `tests` folder and begin writing a test
-- Most functions take in a url, token, name, or id; it is recommended to grab these values before writing tests
-  ```
-  // Grab variables for reference w/ testing functions below
-	url := terraform.Output(t, terraformOptions, "host_url")
-	token := terraform.Output(t, terraformOptions, "token_prefix") + terraform.Output(t, terraformOptions, "token")
-	name := terraform.Output(t, terraformOptions, "cluster_name")
-	id := functions.GetClusterID(url, name, token)
-  ```
+
 
 
 Note: 
