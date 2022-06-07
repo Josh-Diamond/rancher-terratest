@@ -4,121 +4,109 @@ import (
 	"github.com/josh-diamond/rancher-terratest/models"
 )
 
-// This is your workspace, feel free to build out multiple configurations with
-// The instruction provided below, then apply them whenever you'd like in your terratest
-// Custom terratests may be added as well, in the tests package with file name suffix _test.go
+// This is your workspace, feel free to build out multiple configurations by declaring
+// K8sVersions and desired NodePools, then apply them whenever you'd like in your test
+// Tests may be added in the tests package with file name suffix _test.go 
 // Failure to do so and your tests will not be recognized as such
+// [ e.g. rancher > terratest > tests > module > testfile_test.go ]
 
 // Modules
 var Aks  = "aks"
+var K3s  = "k3s"
 var Rke1 = "rke1"
 var Rke2 = "rke2"
-var K3s  = "k3s"
 
 // K8s versions
-var AKSK8sVersion1219 = "1.21.9"
-var AKSK8sVersion1226 = "1.22.6"
+var AKSK8sVersion1235   = "1.23.5"
+var AKSK8sVersion1226   = "1.22.6"
+var AKSK8sVersion1219   = "1.21.9"
 
-var RKE1K8sVersion1229 = "v1.22.9-rancher1-1"
-var RKE1K8sVersion1236 = "v1.23.6-rancher1-1"
+var K3sK8sVersion1236   = "v1.23.6+k3s1"
+var K3sK8sVersion1229   = "v1.22.9+k3s1"
+var K3sK8sVersion12112  = "v1.21.12+k3s1"
 
-var RKE2K8sVersion1229 = "v1.22.9+rke2r2"
-var RKE2K8sVersion1236 = "v1.23.6+rke2r2"
+var RKE1K8sVersion1236  = "v1.23.6-rancher1-1"
+var RKE1K8sVersion1229  = "v1.22.9-rancher1-1"
+var RKE1K8sVersion12112 = "v1.21.12-rancher1-1"
 
-var K3sK8sVersion1229 = "v1.22.9+k3s1"
-var K3sK8sVersion1236 = "v1.23.6+k3s1"
+var RKE2K8sVersion1236  = "v1.23.6+rke2r2"
+var RKE2K8sVersion1229  = "v1.22.9+rke2r2"
+var RKE2K8sVersion12112 = "v1.21.12+rke2r2"
 
-// Customize your desired node pools for Config1
-// Update append() on (line 40) to include desired node pools
-// For multiple configurations, repeat steps for desired node pools
-// Use unique names, then create a variable for the new config of type []models.Nodepool
-// e.g. var Config2 []models.Nodepool
-// Next, create a function, e.g. BuildConfig2() that appends
-// the new desired node pools to the new config
-// New config variable must beginning with a capital letter
-// It will not export otherwise and will be unaccessible during the terratest
+
+// Customize your desired node pools using unique names
+// *examples_here*
+// Declare new variable for nodepools 
+// e.g. 'var NewNodePools []models.Nodepool'
+// Create a function that appends the new desired node pools to the new declared slice NewNodePools
+//
+// e.g. func BuildNewNodePools() {
+//           NewNodePools = append(NewNodePools, unique_pool1, unique_pool2, unique_pool3)
+//      }
+//
+// NewNodePools variable and function that appends to NewNodePools must beginning with a capital letter
+// Variables and functions failing to meet this requirement will not export and will be unaccessible during tests
 // Repeat steps for multiple configs to test against
 
-// NodePools1
-var pool1 = models.Nodepool{
+// Nodes3_Etcd1_Cp1_Wkr1
+var etcd_1 = models.Nodepool{
 	Quantity: 1,
 	Etcd:     "true",
 	Cp:       "false",
 	Wkr:      "false",
 }
 
-var pool2 = models.Nodepool{
+var cp_1 = models.Nodepool{
 	Quantity: 1,
 	Etcd:     "false",
 	Cp:       "true",
 	Wkr:      "false",
 }
 
-var pool3 = models.Nodepool{
+var wkr_1 = models.Nodepool{
 	Quantity: 1,
 	Etcd:     "false",
 	Cp:       "false",
 	Wkr:      "true",
 }
 
-var NodePools1 []models.Nodepool
+var Nodes3_Etcd1_Cp1_Wkr1 []models.Nodepool
 
-func BuildNodePools1() {
-	NodePools1 = append(NodePools1, pool1, pool2, pool3)
+func Build_Nodes3_Etcd1_Cp1_Wkr1() {
+	Nodes3_Etcd1_Cp1_Wkr1 = append(Nodes3_Etcd1_Cp1_Wkr1, etcd_1, cp_1, wkr_1)
 }
 
-// NodePools2
-var pool4 = models.Nodepool{
+// Nodes8_HACluster
+var etcd_3 = models.Nodepool{
 	Quantity: 3,
 	Etcd:     "true",
 	Cp:       "false",
 	Wkr:      "false",
 }
 
-var pool5 = models.Nodepool{
+var cp_2 = models.Nodepool{
 	Quantity: 2,
 	Etcd:     "false",
 	Cp:       "true",
 	Wkr:      "false",
 }
 
-var pool6 = models.Nodepool{
+var wkr_3 = models.Nodepool{
 	Quantity: 3,
 	Etcd:     "false",
 	Cp:       "false",
 	Wkr:      "true",
 }
 
-var NodePools2 []models.Nodepool
+var Nodes8_HACluster []models.Nodepool
 
-func BuildNodePools2() {
-	NodePools2 = append(NodePools2, pool4, pool5, pool6)
+func Build_Nodes8_HACluster() {
+	Nodes8_HACluster = append(Nodes8_HACluster, etcd_3, cp_2, wkr_3)
 }
 
-// NodePools3
-var pool7 = models.Nodepool{
-	Quantity: 3,
-	Etcd:     "true",
-	Cp:       "false",
-	Wkr:      "false",
-}
+// Nodes6_Etcd3_Cp2_Wkr1
+var Nodes6_Etcd3_Cp2_Wkr1 []models.Nodepool
 
-var pool8 = models.Nodepool{
-	Quantity: 2,
-	Etcd:     "false",
-	Cp:       "true",
-	Wkr:      "false",
-}
-
-var pool9 = models.Nodepool{
-	Quantity: 1,
-	Etcd:     "false",
-	Cp:       "false",
-	Wkr:      "true",
-}
-
-var NodePools3 []models.Nodepool
-
-func BuildNodePools3() {
-	NodePools3 = append(NodePools3, pool7, pool8, pool9)
+func Build_Nodes6_Etcd3_Cp2_Wkr1() {
+	Nodes6_Etcd3_Cp2_Wkr1 = append(Nodes6_Etcd3_Cp2_Wkr1, etcd_3, cp_2, wkr_1)
 }

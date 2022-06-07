@@ -12,8 +12,9 @@ import (
 func TestAKSDownStreamCluster(t *testing.T) {
 	t.Parallel()
 
-	config.BuildNodePools1()
-	config1 := functions.SetConfigTF(config.Aks, config.AKSK8sVersion1226, config.NodePools1)
+	// Set initial infrastructure by building TFs declarative config file - [main.tf]
+	config.Build_Nodes3_Etcd1_Cp1_Wkr1()
+	config1 := functions.SetConfigTF(config.Aks, config.AKSK8sVersion1226, config.Nodes3_Etcd1_Cp1_Wkr1)
 	assert.Equal(t, true, config1)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
@@ -22,19 +23,26 @@ func TestAKSDownStreamCluster(t *testing.T) {
 		NoColor:      true,
 	})
 
-	defer terraform.Destroy(t, terraformOptions)
+	cleanup := func() {
+		terraform.Destroy(t, terraformOptions)
+		functions.CleanupConfigTF(config.Aks)
+	}
+
+	// Deploys [main.tf] infrastructure and sets up resource cleanup
+	defer cleanup()
 	terraform.InitAndApply(t, terraformOptions)
 
+	// Grab variables for reference w/ testing functions below
 	url := terraform.Output(t, terraformOptions, "host_url")
 	token := terraform.Output(t, terraformOptions, "token_prefix") + terraform.Output(t, terraformOptions, "token")
 	name := terraform.Output(t, terraformOptions, "cluster_name")
 	id := functions.GetClusterID(url, name, token)
 
+	// Test cluster
 	expectedClusterName := name
 	actualClusterName := functions.GetClusterName(url, id, token)
 	assert.Equal(t, expectedClusterName, actualClusterName)
 
-	// TF output returns the value as type string, which will fail tests, as that's not the expected type from rancher server
 	config1ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config1_expected_node_count"))
 	config1ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config1ExpectedNodeCount, config1ActualNodeCount)
@@ -55,41 +63,28 @@ func TestAKSDownStreamCluster(t *testing.T) {
 	config1ActualRancherServerVersion := functions.GetRancherServerVersion(url, token)
 	assert.Equal(t, config1ExpectedRancherServerVersion, config1ActualRancherServerVersion)
 
-	// // Upgrade k8s version
-	// upgradedK8s := functions.SetConfigTF(config.Aks, config.AKSK8sVersion1226, config.NodePools1)
-	// assert.Equal(t, true, upgradedK8s)
-
-	// terraform.Apply(t, terraformOptions)
-	// functions.WaitForActiveCLuster(url, name, token)
-
-	// // Test cluster
-	// config2ExpectedKubernetesVersion := terraform.Output(t, terraformOptions, "config2_expected_kubernetes_version")
-	// config2ActualKubernetesVersion := functions.GetKubernetesVersion(url, id, token)
-	// assert.Equal(t, config2ExpectedKubernetesVersion, config2ActualKubernetesVersion)
-	
-	// Builds + Sets Config2 + tests if successful
-	config.BuildNodePools2()
-	config2 := functions.SetConfigTF(config.Aks, config.AKSK8sVersion1226, config.NodePools2)
+	// Scale to HA setup - 3 node pools: [3 etcd], [2 cp], [3 wkr]
+	config.Build_Nodes8_HACluster()
+	config2 := functions.SetConfigTF(config.Aks, config.AKSK8sVersion1235, config.Nodes8_HACluster)
 	assert.Equal(t, true, config2)
-	
-	// Apply Config2
+
 	terraform.Apply(t, terraformOptions)
 	functions.WaitForActiveCLuster(url, name, token)
 
-	// Test Config2
+	// Test cluster
 	config2ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config2_expected_node_count"))
 	config2ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config2ExpectedNodeCount, config2ActualNodeCount)
 
-	// Config3
-	config.BuildNodePools3()
-	config3 := functions.SetConfigTF(config.Aks, config.AKSK8sVersion1226, config.NodePools3)
+	// Scale Wkr pool to one - 3 node pools: [3 etcd], [2 cp], [1 wkr]
+	config.Build_Nodes6_Etcd3_Cp2_Wkr1()
+	config3 := functions.SetConfigTF(config.Aks, config.AKSK8sVersion1235, config.Nodes6_Etcd3_Cp2_Wkr1)
 	assert.Equal(t, true, config3)
 
 	terraform.Apply(t, terraformOptions)
 	functions.WaitForActiveCLuster(url, name, token)
 
-	// Test Config3
+	// Test cluster
 	config3ExpectedNodeCount := functions.OutputToInt(terraform.Output(t, terraformOptions, "config3_expected_node_count"))
 	config3ActualNodeCount := functions.GetClusterNodeCount(url, id, token)
 	assert.Equal(t, config3ExpectedNodeCount, config3ActualNodeCount)
