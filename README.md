@@ -51,7 +51,7 @@ Functions:
   - description - waits until cluster is in an active state
 
 Testing:
-- First, create and export configuration specs in config.go (to later reference in your tests)
+- First, create and export configuration specs in config.go, to later reference in your tests
 - Then to add a test, simple create a new _test.go file in the `tests` folder and begin writing your test!
 - Most functions take in a url, token, name, or id; it is recommended to grab those values before writing tests
   ```
