@@ -4,49 +4,28 @@ import (
 	"github.com/josh-diamond/rancher-terratest/models"
 )
 
-// This is your workspace, feel free to build out multiple configurations by declaring
-// K8sVersions and desired NodePools, then apply them whenever you'd like in your test
-// Tests may be added in the tests package with file name suffix _test.go 
-// Failure to do so and your tests will not be recognized as such
-// [ e.g. rancher > terratest > tests > module > testfile_test.go ]
-
 // Modules
-var Aks  = "aks"
-var K3s  = "k3s"
+var Aks = "aks"
+var K3s = "k3s"
 var Rke1 = "rke1"
 var Rke2 = "rke2"
 
 // K8s versions
-var AKSK8sVersion1235   = "1.23.5"
-var AKSK8sVersion1226   = "1.22.6"
-var AKSK8sVersion1219   = "1.21.9"
+var AKSK8sVersion1235 = "1.23.5"
+var AKSK8sVersion1226 = "1.22.6"
+var AKSK8sVersion1219 = "1.21.9"
 
-var K3sK8sVersion1236   = "v1.23.6+k3s1"
-var K3sK8sVersion1229   = "v1.22.9+k3s1"
-var K3sK8sVersion12112  = "v1.21.12+k3s1"
+var K3sK8sVersion1236 = "v1.23.6+k3s1"
+var K3sK8sVersion1229 = "v1.22.9+k3s1"
+var K3sK8sVersion12112 = "v1.21.12+k3s1"
 
-var RKE1K8sVersion1236  = "v1.23.6-rancher1-1"
-var RKE1K8sVersion1229  = "v1.22.9-rancher1-1"
+var RKE1K8sVersion1236 = "v1.23.6-rancher1-1"
+var RKE1K8sVersion1229 = "v1.22.9-rancher1-1"
 var RKE1K8sVersion12112 = "v1.21.12-rancher1-1"
 
-var RKE2K8sVersion1236  = "v1.23.6+rke2r2"
-var RKE2K8sVersion1229  = "v1.22.9+rke2r2"
+var RKE2K8sVersion1236 = "v1.23.6+rke2r2"
+var RKE2K8sVersion1229 = "v1.22.9+rke2r2"
 var RKE2K8sVersion12112 = "v1.21.12+rke2r2"
-
-
-// Customize your desired node pools using unique names
-// *examples_here*
-// Declare new variable for nodepools 
-// e.g. 'var NewNodePools []models.Nodepool'
-// Create a function that appends the new desired node pools to the new declared slice NewNodePools
-//
-// e.g. func BuildNewNodePools() {
-//           NewNodePools = append(NewNodePools, unique_pool1, unique_pool2, unique_pool3)
-//      }
-//
-// NewNodePools variable and function that appends to NewNodePools must beginning with a capital letter
-// Variables and functions failing to meet this requirement will not export and will be unaccessible during tests
-// Repeat steps for multiple configs to test against
 
 // Nodes3_Etcd1_Cp1_Wkr1
 var etcd_1 = models.Nodepool{
