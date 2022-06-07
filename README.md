@@ -51,11 +51,21 @@ Functions:
   - description - waits until cluster is in an active state
 
 Testing:
-- To add a test with terratest, simple create a new _test.go file in the `tests` folder and begin writing your test!
+- First, create and export configuration specs in config.go (to later reference in your tests)
+- Then to add a test, simple create a new _test.go file in the `tests` folder and begin writing your test!
+- Most functions take in a url, token, name, or id; it is recommended to grab those values before writing tests
+  ```
+  // Grab variables for reference w/ testing functions below
+	url := terraform.Output(t, terraformOptions, "host_url")
+	token := terraform.Output(t, terraformOptions, "token_prefix") + terraform.Output(t, terraformOptions, "token")
+	name := terraform.Output(t, terraformOptions, "cluster_name")
+	id := functions.GetClusterID(url, name, token)
+  ```
+
 
 Note: 
+- Extending the test timeout is a best practice. 
 - The default timeout when testing with Go is 10 mins.  
 - To extend timeout, add `-timeout <int>m` when running tests; 
   - e.g. `go test <testfile>.go -timeout 45m` || `go test <testfile>.go -timeout 1h`
-- Tests that timeout will likely not have resources cleaned up properly. 
-- Extending the test timeout is a best practice. 
+- Tests that timeout will likely not have cleaned up resources properly. 
