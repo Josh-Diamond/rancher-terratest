@@ -12,8 +12,8 @@ import (
 func TestRke1DownStreamCluster(t *testing.T) {
 	t.Parallel()
 
-	config.BuildNodePools1()
-	config1 := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1229, config.NodePools1)
+	config.Build_Nodes3_Etcd1_Cp1_Wkr1()
+	config1 := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1229, config.Nodes3_Etcd1_Cp1_Wkr1)
 	assert.Equal(t, true, config1)
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
@@ -22,7 +22,13 @@ func TestRke1DownStreamCluster(t *testing.T) {
 		NoColor:      true,
 	})
 
-	defer terraform.Destroy(t, terraformOptions)
+	cleanup := func() {
+		terraform.Destroy(t, terraformOptions)
+		functions.CleanupConfigTF(config.Rke1)
+	}
+	
+	// Deploys [main.tf] infrastructure and sets up resource cleanup
+	defer cleanup()
 	terraform.InitAndApply(t, terraformOptions)
 
 	url := terraform.Output(t, terraformOptions, "host_url")
@@ -56,7 +62,7 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	assert.Equal(t, config1ExpectedRancherServerVersion, config1ActualRancherServerVersion)
 
 	// Upgrade k8s version
-	upgradedK8s := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1236, config.NodePools1)
+	upgradedK8s := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1236, config.Nodes3_Etcd1_Cp1_Wkr1)
 	assert.Equal(t, true, upgradedK8s)
 
 	terraform.Apply(t, terraformOptions)
@@ -68,8 +74,8 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	assert.Equal(t, config2ExpectedKubernetesVersion, config2ActualKubernetesVersion)
 
 	// Scale to HA setup - 3 node pools: [3 etcd], [2 cp], [3 wkr]
-	config.BuildNodePools2()
-	config2 := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1236, config.NodePools2)
+	config.Build_Nodes8_HACluster()
+	config2 := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1236, config.Nodes8_HACluster)
 	assert.Equal(t, true, config2)
 
 	terraform.Apply(t, terraformOptions)
@@ -81,8 +87,8 @@ func TestRke1DownStreamCluster(t *testing.T) {
 	assert.Equal(t, config2ExpectedNodeCount, config2ActualNodeCount)
 
 	// Scale Wkr pool to one - 3 node pools: [3 etcd], [2 cp], [1 wkr]
-	config.BuildNodePools3()
-	config3 := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1236, config.NodePools3)
+	config.Build_Nodes6_Etcd3_Cp2_Wkr1()
+	config3 := functions.SetConfigTF(config.Rke1, config.RKE1K8sVersion1236, config.Nodes6_Etcd3_Cp2_Wkr1)
 	assert.Equal(t, true, config3)
 
 	terraform.Apply(t, terraformOptions)
